@@ -7,73 +7,116 @@ export default {
   theme: {
     extend: {
       colors: {
-        gov: {
-          bg: "#F8FAFC",
+        maitri: {
+          bg: "#F0F4F9",
           surface: "#FFFFFF",
           card: "#FFFFFF",
-          border: "#E2E8F0",
+          border: "#DDE3EA",
+          "border-light": "#EDF2F7",
+          primary: "#1A65E5",
+          "primary-hover": "#1451B8",
+          "primary-light": "#EBF2FF",
+          navy: "#13294B",
+          gold: "#D97706",
+          orange: "#EA580C",
+          green: "#0D9488",
+          purple: "#5B5CE6",
+          text: "#1E293B",
+          secondary: "#64748B",
+          muted: "#94A3B8"
+        },
+        apple: {
+          bg: "#F0F4F9",
+          subtle: "#F8FAFC",
+          surface: "#FFFFFF",
+          card: "#FFFFFF",
+          border: "#DDE3EA",
+          "border-light": "#EDF2F7",
+          text: "#1E293B",
+          secondary: "#64748B",
+          tertiary: "#94A3B8",
+          accent: "#1A65E5",
+          "accent-hover": "#1451B8",
+          "accent-light": "#EBF2FF",
+        },
+        gov: {
+          bg: "#F0F4F9",
+          surface: "#FFFFFF",
+          card: "#FFFFFF",
+          border: "#DDE3EA",
           "border-dark": "#94A3B8",
           navy: {
-            DEFAULT: "#1B365D",
-            hover: "#142947",
-            dark: "#0F2139",
-            light: "#F0F4F8",
-            muted: "#2C4D79"
+            DEFAULT: "#1A65E5",
+            hover: "#1451B8",
+            dark: "#13294B",
+            light: "#EBF2FF",
+            muted: "#3B82F6"
           },
           slate: {
-            DEFAULT: "#475569",
-            light: "#64748B",
-            lighter: "#94A3B8",
-            dark: "#334155"
+            DEFAULT: "#64748B",
+            light: "#94A3B8",
+            lighter: "#CBD5E1",
+            dark: "#1E293B"
           },
           green: {
-            DEFAULT: "#166534",
+            DEFAULT: "#0D9488",
             bg: "#F0FDF4",
-            border: "#86EFAC",
-            text: "#14532D"
+            border: "#A7F3D0",
+            text: "#0F766E"
           },
           amber: {
-            DEFAULT: "#B45309",
+            DEFAULT: "#D97706",
             bg: "#FFFBEB",
-            border: "#FCD34D",
-            text: "#92400E"
+            border: "#FDE68A",
+            text: "#B45309"
           },
           red: {
-            DEFAULT: "#991B1B",
+            DEFAULT: "#E11D48",
             bg: "#FEF2F2",
-            border: "#FCA5A5",
-            text: "#7F1D1D"
+            border: "#FECACA",
+            text: "#BE123C"
           },
           blue: {
-            DEFAULT: "#1D4ED8",
-            bg: "#EFF6FF",
+            DEFAULT: "#1A65E5",
+            bg: "#EBF2FF",
             border: "#BFDBFE",
-            text: "#1E40AF"
+            text: "#1D4ED8"
           }
         }
       },
       fontFamily: {
-        sans: ['"Plus Jakarta Sans"', '"Inter"', '"Source Sans 3"', 'system-ui', '-apple-system', 'sans-serif'],
-        display: ['"Plus Jakarta Sans"', 'sans-serif'],
-        mono: ['"JetBrains Mono"', '"IBM Plex Mono"', 'monospace']
-      },
-      fontSize: {
-        '2xs': ['11px', '16px'],
-        'xs': ['12.5px', '18px'],
-        'sm': ['14px', '21px'],
-        'base': ['15.5px', '24px'],
-        'lg': ['17.5px', '26px'],
-        'xl': ['20px', '28px'],
-        '2xl': ['24px', '32px'],
-        '3xl': ['30px', '38px'],
+        sans: [
+          'system-ui',
+          '-apple-system',
+          'BlinkMacSystemFont',
+          '"Segoe UI"',
+          'Roboto',
+          'Helvetica',
+          'Arial',
+          'sans-serif'
+        ],
+        display: [
+          'system-ui',
+          '-apple-system',
+          'sans-serif'
+        ],
+        mono: [
+          'ui-monospace',
+          'SFMono-Regular',
+          'Menlo',
+          'Monaco',
+          'Consolas',
+          'monospace'
+        ]
       },
       borderRadius: {
-        DEFAULT: '4px',
-        'xs': '2px',
-        'sm': '3px',
-        'md': '6px',
-        'lg': '8px',
-        'xl': '12px',
+        DEFAULT: '8px',
+        'xs': '3px',
+        'sm': '6px',
+        'md': '8px',
+        'lg': '12px',
+        'xl': '16px',
+        '2xl': '20px',
       }
     },
   },

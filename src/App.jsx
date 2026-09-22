@@ -6,6 +6,7 @@ import ApprovalDrawer from './components/ApprovalDrawer';
 import VerificationPanel from './components/VerificationPanel';
 import ApplicationTimeline from './components/ApplicationTimeline';
 import DigiLockerModal from './components/DigiLockerModal';
+import LegalModal from './components/LegalModal';
 
 // Pages
 import Landing from './pages/Landing';
@@ -58,6 +59,8 @@ export default function App() {
   const [selectedApplication, setSelectedApplication] = useState(null);
   const [isDigiLockerOpen, setIsDigiLockerOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [legalModalOpen, setLegalModalOpen] = useState(false);
+  const [legalModalType, setLegalModalType] = useState('terms');
 
   // Toast Notification State
   const [toast, setToast] = useState(null);
@@ -198,6 +201,14 @@ export default function App() {
       return;
     }
     setIsLandingVisible(false);
+    
+    // Automatically switch role if navigating across workspace domains
+    if (routeId.startsWith('gov-')) {
+      setCurrentRole('government');
+    } else if (currentRole === 'government' && !routeId.startsWith('gov-') && routeId !== 'architecture') {
+      setCurrentRole('entrepreneur');
+    }
+
     setCurrentRoute(routeId);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -222,20 +233,34 @@ export default function App() {
     showToast(`Loaded ${demoProjects[scenarioKey].name}`, "info");
   };
 
+  const handleOpenLegal = (type) => {
+    setLegalModalType(type);
+    setLegalModalOpen(true);
+  };
+
   if (isLandingVisible) {
     return (
-      <Landing
-        onSelectRole={(role) => handleRoleChange(role)}
-        onSelectScenario={(sc) => handleLandingScenario(sc)}
-      />
+      <>
+        <Landing
+          onSelectRole={(role) => handleRoleChange(role)}
+          onSelectScenario={(sc) => handleLandingScenario(sc)}
+          onOpenLegal={handleOpenLegal}
+        />
+        <LegalModal
+          isOpen={legalModalOpen}
+          onClose={() => setLegalModalOpen(false)}
+          documentType={legalModalType}
+        />
+      </>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#F5F6F8] flex flex-col font-sans text-slate-900 selection:bg-[#1B365D] selection:text-white">
+    <div className="min-h-screen bg-[#F5F5F7] flex flex-col font-sans text-[#1D1D1F] selection:bg-[#003366] selection:text-white">
       {/* Global Portal Header */}
       <Header
         currentRole={currentRole}
+        currentRoute={currentRoute}
         onRoleChange={handleRoleChange}
         activeProject={activeProject}
         onSelectProject={(key) => handleSelectProject(key)}
@@ -457,6 +482,36 @@ export default function App() {
         isOpen={Boolean(selectedApplication)}
         onClose={() => setSelectedApplication(null)}
       />
+
+      <LegalModal
+        isOpen={legalModalOpen}
+        onClose={() => setLegalModalOpen(false)}
+        documentType={legalModalType}
+      />
+
+      {/* Global Footer */}
+      <footer className="border-t border-[#D2D2D7] bg-white py-3 px-6 text-xs text-[#6E6E73] mt-auto">
+        <div className="max-w-[1920px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+          <div>
+            INDUSTRIA • Government of Maharashtra Single Window Portal • Prototype Environment (SIH 2026)
+          </div>
+          <div className="flex items-center gap-3">
+            <button 
+              onClick={() => handleOpenLegal('terms')}
+              className="hover:text-[#1D1D1F] hover:underline"
+            >
+              Terms of Service
+            </button>
+            <span className="text-[#D2D2D7]">|</span>
+            <button 
+              onClick={() => handleOpenLegal('privacy')}
+              className="hover:text-[#1D1D1F] hover:underline"
+            >
+              Privacy & DPDP Policy
+            </button>
+          </div>
+        </div>
+      </footer>
 
       {/* Toast Notification Container */}
       <Toast

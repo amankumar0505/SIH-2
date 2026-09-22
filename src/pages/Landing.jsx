@@ -1,101 +1,88 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   Building2, 
-  ShieldCheck, 
   ArrowRight, 
-  FileCheck, 
-  GitBranch, 
-  Clock, 
-  BarChart3,
-  Factory
+  Factory,
+  Check,
+  Calendar,
+  Briefcase,
+  FileText,
+  User,
+  MessageSquare
 } from 'lucide-react';
+import MaitriLogo from '../components/MaitriLogo';
 
-export default function Landing({ onSelectRole, onSelectScenario }) {
+export default function Landing({ onSelectRole, onSelectScenario, onOpenLegal }) {
   return (
-    <div className="min-h-screen bg-[#F4F6F9] flex flex-col justify-between font-sans text-slate-900">
-      {/* Top Administrative Bar */}
-      <div className="bg-[#0F2139] text-white px-6 py-2 text-xs flex flex-wrap items-center justify-between border-b border-slate-700">
-        <div className="flex items-center gap-2.5">
-          <span className="font-bold tracking-wider text-slate-200">GOVERNMENT OF MAHARASHTRA</span>
-          <span className="text-slate-500">|</span>
-          <span className="text-slate-300">Department of Industries — Single Window Services</span>
-        </div>
+    <div className="min-h-screen bg-[#F0F4F9] flex flex-col justify-between text-slate-800">
+      {/* Official Government Strip */}
+      <div className="bg-white border-b border-[#DDE3EA] px-6 py-3 flex flex-wrap items-center justify-between gap-4">
+        <MaitriLogo />
         <div className="flex items-center gap-3">
-          <span className="bg-[#92400E] text-amber-100 px-2 py-0.5 rounded-[2px] text-[11px] font-bold uppercase tracking-wider border border-amber-600/40">
-            Prototype Environment
+          <span className="bg-orange-100 text-orange-800 px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wide border border-orange-200">
+            Government of Maharashtra
           </span>
-          <span className="text-slate-400">SIH 2026</span>
+          <span className="text-xs text-slate-500 font-mono">SIH 2026</span>
         </div>
       </div>
 
       {/* Main Content Area */}
-      <div className="max-w-5xl mx-auto px-6 py-12 flex-1 flex flex-col justify-center">
-        {/* Portal Branding Header */}
+      <main className="max-w-5xl mx-auto px-6 py-12 flex-1 flex flex-col justify-center w-full">
+        {/* Title */}
         <div className="text-center space-y-3 max-w-2xl mx-auto">
-          <div className="w-16 h-16 bg-white rounded-[4px] border border-slate-300 shadow-sm mx-auto flex items-center justify-center text-[#1B365D]">
-            <Building2 className="w-9 h-9 text-[#1B365D]" />
-          </div>
-
-          <div>
-            <div className="inline-flex items-center gap-2 bg-[#EBF2FA] text-[#1B365D] border border-blue-200 text-xs font-semibold px-3 py-1 rounded-[2px] mb-2">
-              <ShieldCheck className="w-4 h-4" />
-              <span>Single-Window Industrial Approvals & Regulatory Compliance</span>
-            </div>
-            <h1 className="text-3xl sm:text-4xl font-bold text-[#1B365D] tracking-tight">
-              INDUSTRIA
-            </h1>
-            <p className="text-lg font-bold text-slate-800 mt-1">
-              Industrial Approval & Compliance Portal
-            </p>
-            <p className="text-[15px] text-slate-600 mt-2 max-w-xl mx-auto leading-relaxed">
-              "One place to understand, apply for and track industrial approvals across Maharashtra government departments."
-            </p>
-          </div>
+          <span className="text-xs font-bold text-[#1A65E5] uppercase tracking-wider bg-blue-50 px-3 py-1 rounded-full border border-blue-200 inline-block">
+            Maharashtra Industrial Investment Facilitation Portal
+          </span>
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+            Single Window Industrial Clearances & Regulatory Compliance
+          </h1>
+          <p className="text-sm sm:text-base text-slate-600 leading-relaxed pt-1">
+            Official single point of contact for investors and enterprises in Maharashtra. Transparent, time-bound statutory clearances across state departments.
+          </p>
         </div>
 
-        {/* Workspace Selection Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10 max-w-3xl mx-auto w-full">
-          {/* Entrepreneur Workspace */}
+        {/* Primary Workspaces: 2 Product Surfaces */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10 w-full">
+          {/* Investor Workspace */}
           <div
             onClick={() => onSelectRole('entrepreneur')}
-            className="bg-white rounded-[4px] border-2 border-slate-300 hover:border-[#1B365D] p-6 shadow-[0_1px_3px_rgba(0,0,0,0.05)] hover:shadow-md transition-all cursor-pointer flex flex-col justify-between group"
+            className="bg-white rounded-xl border-2 border-slate-200 hover:border-[#1A65E5] p-7 transition-all cursor-pointer flex flex-col justify-between shadow-xs hover:shadow-md group"
           >
-            <div>
-              <div className="w-11 h-11 rounded-[3px] bg-blue-50 text-[#1B365D] flex items-center justify-center mb-4 border border-blue-200 group-hover:bg-[#1B365D] group-hover:text-white transition-colors">
+            <div className="space-y-4">
+              <div className="w-12 h-12 rounded-xl bg-blue-50 text-[#1A65E5] flex items-center justify-center border border-blue-200 group-hover:bg-[#1A65E5] group-hover:text-white transition-colors">
                 <Factory className="w-6 h-6" />
               </div>
-              <h2 className="text-[19px] font-bold text-slate-900 group-hover:text-[#1B365D]">
-                Entrepreneur Workspace
-              </h2>
-              <p className="text-[13.5px] text-slate-600 mt-2 leading-relaxed">
-                For business founders and industrial project managers to identify required approvals, check document consistency, view parallel roadmaps, and track clearances.
-              </p>
+              
+              <div>
+                <h2 className="text-xl font-bold text-slate-900 group-hover:text-[#1A65E5] transition-colors">
+                  Investor & Entrepreneur Workspace
+                </h2>
+                <p className="text-xs text-slate-600 mt-1.5 leading-relaxed">
+                  For industrial founders to apply for clearances, inspect document inconsistencies, track parallel processing, and review statutory feedback.
+                </p>
+              </div>
 
-              <ul className="mt-4 space-y-1.5 text-[13px] text-slate-700 font-medium">
+              <ul className="space-y-2 pt-2 text-xs text-slate-700">
                 <li className="flex items-center gap-2">
-                  <span className="text-emerald-700 font-bold">✓</span>
-                  <span>Personalized Approval Plan & Rule Breakdown</span>
+                  <span className="w-4 h-4 rounded-full bg-emerald-100 text-emerald-700 font-bold flex items-center justify-center text-[11px]">✓</span>
+                  <span>Interactive Dashboard with Performance Trends & Date Filtering</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="text-emerald-700 font-bold">✓</span>
-                  <span>Sequential & Parallel Approval Roadmap</span>
+                  <span className="w-4 h-4 rounded-full bg-emerald-100 text-emerald-700 font-bold flex items-center justify-center text-[11px]">✓</span>
+                  <span>Parallel clearance roadmap saving 75 working days</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="text-emerald-700 font-bold">✓</span>
-                  <span>Document Consistency Pre-Scrutiny</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="text-emerald-700 font-bold">✓</span>
-                  <span>Licence Renewals & State Subsidy Eligibility</span>
+                  <span className="w-4 h-4 rounded-full bg-emerald-100 text-emerald-700 font-bold flex items-center justify-center text-[11px]">✓</span>
+                  <span>Document pre-scrutiny and DigiLocker direct ingestion</span>
                 </li>
               </ul>
             </div>
 
-            <div className="mt-6 pt-4 border-t border-slate-200 flex items-center justify-between">
-              <span className="text-[13.5px] font-bold text-[#1B365D] group-hover:underline">
-                Enter as Entrepreneur
+            <div className="mt-8 pt-4 border-t border-slate-100 flex items-center justify-between">
+              <span className="text-xs font-bold text-[#1A65E5]">
+                Enter Investor Portal
               </span>
-              <div className="w-7 h-7 rounded-[2px] bg-[#1B365D] text-white flex items-center justify-center shadow-sm">
+              <div className="w-7 h-7 rounded-md bg-[#1A65E5] text-white flex items-center justify-center">
                 <ArrowRight className="w-4 h-4" />
               </div>
             </div>
@@ -104,88 +91,106 @@ export default function Landing({ onSelectRole, onSelectScenario }) {
           {/* Government Officer Workspace */}
           <div
             onClick={() => onSelectRole('government')}
-            className="bg-white rounded-[4px] border-2 border-slate-300 hover:border-[#1B365D] p-6 shadow-[0_1px_3px_rgba(0,0,0,0.05)] hover:shadow-md transition-all cursor-pointer flex flex-col justify-between group"
+            className="bg-white rounded-xl border-2 border-slate-200 hover:border-[#1A65E5] p-7 transition-all cursor-pointer flex flex-col justify-between shadow-xs hover:shadow-md group"
           >
-            <div>
-              <div className="w-11 h-11 rounded-[3px] bg-slate-100 text-slate-700 flex items-center justify-center mb-4 border border-slate-300 group-hover:bg-[#1B365D] group-hover:text-white transition-colors">
-                <ShieldCheck className="w-6 h-6" />
+            <div className="space-y-4">
+              <div className="w-12 h-12 rounded-xl bg-orange-50 text-[#EA580C] flex items-center justify-center border border-orange-200 group-hover:bg-[#EA580C] group-hover:text-white transition-colors">
+                <Building2 className="w-6 h-6" />
               </div>
-              <h2 className="text-[19px] font-bold text-slate-900 group-hover:text-[#1B365D]">
-                Government Department Workspace
-              </h2>
-              <p className="text-[13.5px] text-slate-600 mt-2 leading-relaxed">
-                For department scrutiny officers, regional directors, and administrative heads (MPCB, DISH, MFES, MSEDCL, SPA) to manage caseloads, inspect delayed files, and resolve bottlenecks.
-              </p>
+              
+              <div>
+                <h2 className="text-xl font-bold text-slate-900 group-hover:text-[#EA580C] transition-colors">
+                  Department Scrutiny Console
+                </h2>
+                <p className="text-xs text-slate-600 mt-1.5 leading-relaxed">
+                  For MPCB, DISH, MFES, and MSEDCL officers to review 1,250 applications, resolve bottlenecks, and issue SLA compliance directives.
+                </p>
+              </div>
 
-              <ul className="mt-4 space-y-1.5 text-[13px] text-slate-700 font-medium">
+              <ul className="space-y-2 pt-2 text-xs text-slate-700">
                 <li className="flex items-center gap-2">
-                  <span className="text-[#1B365D] font-bold">✓</span>
-                  <span>1,250 Applications Caseload Oversight</span>
+                  <span className="w-4 h-4 rounded-full bg-orange-100 text-[#EA580C] font-bold flex items-center justify-center text-[11px]">✓</span>
+                  <span>Real-time oversight over 1,250 department applications</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="text-[#1B365D] font-bold">✓</span>
-                  <span>Pollution Department Bottleneck Diagnostic</span>
+                  <span className="w-4 h-4 rounded-full bg-orange-100 text-[#EA580C] font-bold flex items-center justify-center text-[11px]">✓</span>
+                  <span>SLA bottleneck diagnostics and turnaround analytics</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="text-[#1B365D] font-bold">✓</span>
-                  <span>42 Overdue Cases Expedited Scrutiny</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="text-[#1B365D] font-bold">✓</span>
-                  <span>Inter-departmental SLA Turnaround Analytics</span>
+                  <span className="w-4 h-4 rounded-full bg-orange-100 text-[#EA580C] font-bold flex items-center justify-center text-[11px]">✓</span>
+                  <span>42 Overdue Cases with direct SLA notice dispatch</span>
                 </li>
               </ul>
             </div>
 
-            <div className="mt-6 pt-4 border-t border-slate-200 flex items-center justify-between">
-              <span className="text-[13.5px] font-bold text-[#1B365D] group-hover:underline">
-                Enter as Government Officer
+            <div className="mt-8 pt-4 border-t border-slate-100 flex items-center justify-between">
+              <span className="text-xs font-bold text-[#EA580C]">
+                Enter Department Console
               </span>
-              <div className="w-7 h-7 rounded-[2px] bg-[#1B365D] text-white flex items-center justify-center shadow-sm">
+              <div className="w-7 h-7 rounded-md bg-[#EA580C] text-white flex items-center justify-center">
                 <ArrowRight className="w-4 h-4" />
               </div>
             </div>
           </div>
         </div>
 
-        {/* Quick Demo Presets Strip */}
-        <div className="mt-8 bg-white p-4 rounded-[4px] border border-slate-300 shadow-sm max-w-3xl mx-auto w-full text-xs">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 pb-2 border-b border-slate-200">
-            <span className="font-bold text-slate-800 text-[13px]">Quick Demonstration Scenarios:</span>
-            <span className="text-slate-500 text-[12px]">Click to launch directly</span>
+        {/* Real Test Presets */}
+        <div className="mt-8 bg-white p-5 rounded-xl border border-[#DDE3EA] shadow-xs">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 pb-3 border-b border-slate-100">
+            <span className="font-bold text-slate-900 text-xs">Quick Test Scenarios (Maharashtra Industrial Estates)</span>
+            <span className="text-slate-500 text-[11px]">Click to launch pre-loaded profile</span>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 mt-2.5">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-3 text-xs">
             <button
               onClick={() => onSelectScenario('food_processing')}
-              className="p-3 rounded-[2px] border border-slate-200 bg-slate-50 hover:bg-blue-50 text-left transition-colors"
+              className="p-3 rounded-lg border border-slate-200 hover:border-[#1A65E5] bg-slate-50 hover:bg-white text-left transition-all"
             >
-              <div className="font-bold text-[#1B365D] text-[13.5px]">1. ABC Food Processing (Default)</div>
-              <div className="text-[12px] text-slate-600 mt-0.5">Pune • ₹5 Cr, 80 Emp • Orange Cat.</div>
+              <div className="font-bold text-[#1A65E5]">1. ABC Food Processing Pvt Ltd</div>
+              <div className="text-[11px] text-slate-600 mt-0.5">Chakan MIDC, Pune • ₹5 Cr, 80 Employees</div>
             </button>
 
             <button
               onClick={() => onSelectScenario('manufacturing')}
-              className="p-3 rounded-[2px] border border-slate-200 bg-slate-50 hover:bg-blue-50 text-left transition-colors"
+              className="p-3 rounded-lg border border-slate-200 hover:border-[#1A65E5] bg-slate-50 hover:bg-white text-left transition-all"
             >
-              <div className="font-bold text-[#1B365D] text-[13.5px]">2. Heavy Engineering Plant</div>
-              <div className="text-[12px] text-slate-600 mt-0.5">Nagpur • ₹20 Cr, 250 Emp • Red Cat.</div>
+              <div className="font-bold text-[#1A65E5]">2. Heavy Engineering Works</div>
+              <div className="text-[11px] text-slate-600 mt-0.5">Hingna MIDC, Nagpur • ₹20 Cr, 250 Employees</div>
             </button>
 
             <button
               onClick={() => onSelectScenario('it_ites')}
-              className="p-3 rounded-[2px] border border-slate-200 bg-slate-50 hover:bg-blue-50 text-left transition-colors"
+              className="p-3 rounded-lg border border-slate-200 hover:border-[#1A65E5] bg-slate-50 hover:bg-white text-left transition-all"
             >
-              <div className="font-bold text-[#1B365D] text-[13.5px]">3. IT / ITES Software Park</div>
-              <div className="text-[12px] text-slate-600 mt-0.5">Hinjawadi, Pune • ₹10 Cr • White Cat.</div>
+              <div className="font-bold text-[#1A65E5]">3. Sahyadri Cloud Systems LLP</div>
+              <div className="text-[11px] text-slate-600 mt-0.5">Hinjawadi IT Park, Pune • ₹10 Cr</div>
             </button>
           </div>
         </div>
-      </div>
+      </main>
 
-      {/* Institutional Footer */}
-      <footer className="bg-white border-t border-slate-300 py-3 px-6 text-center text-[12.5px] text-slate-600">
-        INDUSTRIA • Industrial Approval & Regulatory Compliance Single-Window Portal • Government of Maharashtra Prototype (SIH 2026)
+      {/* Footer */}
+      <footer className="border-t border-[#DDE3EA] bg-white py-4 px-6 text-xs text-slate-500">
+        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+          <div>
+            INDUSTRIA • Industrial Approvals & Regulatory Compliance Single-Window Portal • Government of Maharashtra
+          </div>
+          <div className="flex items-center gap-4 text-xs font-semibold">
+            <button
+              onClick={() => onOpenLegal?.('terms')}
+              className="hover:text-[#1A65E5] hover:underline"
+            >
+              Terms of Service
+            </button>
+            <span>|</span>
+            <button
+              onClick={() => onOpenLegal?.('privacy')}
+              className="hover:text-[#1A65E5] hover:underline"
+            >
+              DPDP & Privacy Policy
+            </button>
+          </div>
+        </div>
       </footer>
     </div>
   );

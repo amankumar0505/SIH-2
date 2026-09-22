@@ -1,15 +1,14 @@
 import React from 'react';
-import { Building, MapPin, IndianRupee, Users, Maximize2, Layers } from 'lucide-react';
 
 export default function ProjectSummaryStrip({ project, onEdit }) {
   if (!project) return null;
 
   return (
-    <div className="bg-white rounded-[3px] border border-[#CBD5E1] p-4 mb-5 shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
+    <div className="bg-white rounded-lg border border-[#D2D2D7] p-4 sm:p-5 mb-6">
       <div className="flex flex-wrap items-center justify-between gap-3 text-xs">
         <div className="flex items-center gap-2.5">
-          <span className="font-bold text-slate-900 text-[15px]">{project.name}</span>
-          <span className="bg-[#EBF2FA] text-[#1B365D] px-2 py-0.5 rounded-[2px] font-semibold text-[12px] border border-blue-200">
+          <span className="font-semibold text-[#1D1D1F] text-[15px]">{project.name}</span>
+          <span className="bg-[#F5F5F7] text-[#003366] px-2 py-0.5 rounded font-medium text-[12px] border border-[#E5E5EA]">
             {project.industry}
           </span>
         </div>
@@ -17,42 +16,42 @@ export default function ProjectSummaryStrip({ project, onEdit }) {
         {onEdit && (
           <button
             onClick={onEdit}
-            className="text-[13px] font-semibold text-[#1B365D] hover:underline"
+            className="text-[12.5px] font-medium text-[#003366] hover:underline"
           >
-            Edit Project Parameters →
+            Edit Profile Parameters →
           </button>
         )}
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3.5 mt-3 pt-3 border-t border-slate-200 text-xs">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 mt-3 pt-3 border-t border-[#E5E5EA] text-xs">
         <div>
-          <span className="text-slate-500 block text-[11.5px] font-medium">Location</span>
-          <span className="font-semibold text-slate-800 text-[13.5px]">{project.location?.district}, {project.location?.state}</span>
+          <span className="text-[#86868B] block text-[11px] uppercase tracking-wider font-medium">Location</span>
+          <span className="font-medium text-[#1D1D1F] text-[13px] mt-0.5 block">{project.location?.district}, Maharashtra</span>
         </div>
         <div>
-          <span className="text-slate-500 block text-[11.5px] font-medium">Capital Investment</span>
-          <span className="font-semibold text-slate-800 text-[13.5px]">{project.investment}</span>
+          <span className="text-[#86868B] block text-[11px] uppercase tracking-wider font-medium">Capital Investment</span>
+          <span className="font-medium text-[#1D1D1F] text-[13px] mt-0.5 block font-mono">{project.investment}</span>
         </div>
         <div>
-          <span className="text-slate-500 block text-[11.5px] font-medium">Workforce</span>
-          <span className="font-semibold text-slate-800 text-[13.5px]">{project.employees} Employees</span>
+          <span className="text-[#86868B] block text-[11px] uppercase tracking-wider font-medium">Workforce</span>
+          <span className="font-medium text-[#1D1D1F] text-[13px] mt-0.5 block">{project.employees} Personnel</span>
         </div>
         <div>
-          <span className="text-slate-500 block text-[11.5px] font-medium">Land Area</span>
-          <span className="font-semibold text-slate-800 text-[13.5px]">{project.landArea}</span>
+          <span className="text-[#86868B] block text-[11px] uppercase tracking-wider font-medium">Site Area</span>
+          <span className="font-medium text-[#1D1D1F] text-[13px] mt-0.5 block">{project.landArea}</span>
         </div>
         <div>
-          <span className="text-slate-500 block text-[11.5px] font-medium">Pollution Category</span>
-          <span className={`font-semibold text-[13.5px] ${
-            project.pollutionCategory === 'Red' ? 'text-red-700' :
-            project.pollutionCategory === 'Orange' ? 'text-amber-800' : 'text-emerald-800'
+          <span className="text-[#86868B] block text-[11px] uppercase tracking-wider font-medium">Pollution Grade</span>
+          <span className={`font-medium text-[13px] mt-0.5 block ${
+            project.pollutionCategory === 'Red' ? 'text-[#991B1B]' :
+            project.pollutionCategory === 'Orange' ? 'text-[#78350F]' : 'text-[#14532D]'
           }`}>
             {project.pollutionCategory} Category
           </span>
         </div>
         <div>
-          <span className="text-slate-500 block text-[11.5px] font-medium">Project Stage</span>
-          <span className="font-semibold text-slate-800 text-[13.5px]">{project.projectType}</span>
+          <span className="text-[#86868B] block text-[11px] uppercase tracking-wider font-medium">Project Stage</span>
+          <span className="font-medium text-[#1D1D1F] text-[13px] mt-0.5 block">{project.projectType}</span>
         </div>
       </div>
     </div>
