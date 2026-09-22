@@ -66,18 +66,21 @@ export default function Incentives({ project, onNavigate, showToast }) {
   };
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-6">
       {/* Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-1">
+      <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-3 pb-1">
         <div>
-          <div className="text-[12px] font-bold text-slate-500 uppercase tracking-wider">
-            Fiscal Benefits & Subsidies
+          <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wider flex items-center gap-2">
+            <span>Fiscal Benefits & Subsidies</span>
+            <span className="text-emerald-800 bg-emerald-50 text-[10.5px] px-2 py-0.5 rounded border border-emerald-200 font-bold">
+              3 Matched Schemes
+            </span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-[#1B365D]">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-0.5">
             Incentives & Government Schemes
           </h1>
-          <p className="text-[14px] text-slate-600 mt-0.5">
-            Automated eligibility matching against Maharashtra State Industrial Policy and central ministry grants.
+          <p className="text-xs sm:text-sm text-slate-600 mt-1">
+            Automated eligibility matching against Maharashtra State Industrial Policy (PSI 2019) and central grants.
           </p>
         </div>
       </div>
@@ -85,15 +88,15 @@ export default function Incentives({ project, onNavigate, showToast }) {
       <ProjectSummaryStrip project={project} />
 
       {/* Official Disclaimer Banner */}
-      <div className="p-3.5 bg-amber-50 border border-amber-300 rounded-[3px] text-xs text-amber-950 flex items-center justify-between">
-        <div className="flex items-center gap-2.5">
-          <AlertCircle className="w-5 h-5 text-amber-800 shrink-0" />
-          <span className="text-[13px] leading-relaxed">
-            <strong>Official Policy Note:</strong> Eligibility is indicated as <em>"Potentially Eligible"</em> based on rule parameters. Final financial disbursement requires bank term loan documentation and physical verification by the District Industries Centre (DIC).
+      <div className="p-4 bg-amber-50/70 border border-amber-300 rounded-xl text-xs text-amber-950 flex items-center justify-between shadow-xs">
+        <div className="flex items-center gap-3">
+          <AlertCircle className="w-5 h-5 text-amber-700 shrink-0" />
+          <span className="text-xs leading-relaxed">
+            <strong className="font-bold">Policy Note:</strong> Eligibility is indicated as <em className="font-semibold">"Potentially Eligible"</em> based on rule parameters. Final financial disbursement requires bank term loan documentation and physical verification by District Industries Centre (DIC).
           </span>
         </div>
-        <span className="font-bold text-[11px] uppercase bg-amber-200 text-amber-950 px-2 py-0.5 rounded-[2px] shrink-0 border border-amber-300">
-          Prototype Estimation
+        <span className="font-bold text-[10.5px] uppercase bg-amber-200/80 text-amber-950 px-2.5 py-1 rounded-md shrink-0 border border-amber-300 font-mono ml-2">
+          Statutory Policy Estimate
         </span>
       </div>
 
@@ -102,70 +105,70 @@ export default function Incentives({ project, onNavigate, showToast }) {
         {schemes.map((sch) => (
           <div
             key={sch.id}
-            className="bg-white rounded-[3px] border border-[#CBD5E1] p-5 shadow-[0_1px_2px_rgba(0,0,0,0.04)] space-y-4"
+            className="bg-white rounded-xl border border-slate-200 p-5 sm:p-6 shadow-xs space-y-4"
           >
-            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 pb-3 border-b border-slate-200">
+            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 pb-4 border-b border-slate-100">
               <div>
-                <div className="flex items-center gap-2 mb-1">
-                  <span className="text-[11.5px] font-bold text-slate-500 uppercase tracking-wider">
+                <div className="flex items-center gap-2 mb-1.5">
+                  <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
                     {sch.category}
                   </span>
-                  <span className="bg-emerald-50 text-emerald-800 border border-emerald-300 text-[11.5px] font-bold px-2 py-0.2 rounded-[2px]">
+                  <span className="bg-emerald-50 text-emerald-800 border border-emerald-300 text-[11px] font-bold px-2 py-0.5 rounded">
                     ✓ {sch.eligibilityStatus}
                   </span>
                 </div>
-                <h2 className="text-[18px] font-bold text-[#1B365D] leading-tight">
+                <h2 className="text-lg font-bold text-slate-900 leading-tight">
                   {sch.name}
                 </h2>
-                <div className="text-[13px] text-slate-600 mt-0.5 flex items-center gap-1.5">
+                <div className="text-xs text-slate-600 mt-1 flex items-center gap-1.5">
                   <Building className="w-3.5 h-3.5 text-slate-400" />
                   <span>{sch.department}</span>
                 </div>
               </div>
 
-              <div className="sm:text-right">
-                <span className="text-[11.5px] text-slate-500 block font-bold uppercase">Estimated Benefit Value</span>
-                <span className="text-[17px] font-bold text-emerald-800">{sch.estimatedBenefit}</span>
+              <div className="sm:text-right bg-emerald-50/50 p-2.5 rounded-lg border border-emerald-200 sm:border-0 sm:bg-transparent sm:p-0">
+                <span className="text-[11px] text-slate-500 block font-bold uppercase">Estimated Benefit Value</span>
+                <span className="text-base sm:text-lg font-extrabold text-emerald-800">{sch.estimatedBenefit}</span>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-              <div className="space-y-2">
-                <div className="font-bold text-slate-900 text-[13.5px]">Eligibility Rationale:</div>
-                <p className="text-slate-700 bg-slate-50 p-3 rounded-[2px] border border-slate-200 text-[13px] leading-relaxed">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 text-xs">
+              <div className="space-y-3">
+                <div className="font-bold text-slate-900">Eligibility Rationale:</div>
+                <p className="text-slate-700 bg-slate-50 p-3.5 rounded-lg border border-slate-200 text-xs leading-relaxed">
                   {sch.eligibilityBasis}
                 </p>
 
-                <div className="font-bold text-slate-900 text-[13.5px] pt-1">Key Fiscal Provisions:</div>
-                <ul className="space-y-1 text-slate-700 text-[13px]">
+                <div className="font-bold text-slate-900 pt-1">Key Fiscal Provisions:</div>
+                <ul className="space-y-1.5 text-slate-700 text-xs">
                   {sch.keyBenefits.map((b, idx) => (
-                    <li key={idx} className="flex items-start gap-1.5">
-                      <span className="text-emerald-700 font-bold">✓</span>
+                    <li key={idx} className="flex items-start gap-2">
+                      <span className="text-emerald-700 font-bold shrink-0">✓</span>
                       <span>{b}</span>
                     </li>
                   ))}
                 </ul>
               </div>
 
-              <div className="space-y-2">
-                <div className="font-bold text-slate-900 text-[13.5px]">Required Documentation:</div>
-                <div className="border border-slate-200 rounded-[3px] divide-y divide-slate-200 bg-slate-50/50 text-xs">
+              <div className="space-y-3">
+                <div className="font-bold text-slate-900">Required Documentation:</div>
+                <div className="border border-slate-200 rounded-lg divide-y divide-slate-100 bg-slate-50/50 text-xs">
                   {sch.requiredDocs.map((doc, idx) => (
-                    <div key={idx} className="p-2.5 flex items-center justify-between text-[13px]">
+                    <div key={idx} className="p-2.5 px-3 flex items-center justify-between text-xs">
                       <span className="text-slate-800 font-medium">{doc}</span>
-                      <span className="text-[11px] bg-slate-200 text-slate-700 px-2 py-0.2 rounded-[2px] font-bold">
+                      <span className="text-[10.5px] bg-slate-200/80 text-slate-700 px-2 py-0.5 rounded font-bold">
                         Ready
                       </span>
                     </div>
                   ))}
                 </div>
 
-                <div className="pt-3 flex justify-end">
+                <div className="pt-2 flex justify-end">
                   <button
                     onClick={() => handleApplyScheme(sch)}
-                    className="px-4 py-2 bg-[#1B365D] hover:bg-[#142947] text-white rounded-[3px] text-[13px] font-semibold shadow-sm flex items-center gap-1.5"
+                    className="px-4 py-2 bg-[#1E4E8C] hover:bg-[#143D6F] text-white rounded-lg text-xs font-bold shadow-xs transition-colors"
                   >
-                    <span>Apply for Incentive Sanction</span>
+                    Apply for Incentive Scheme →
                   </button>
                 </div>
               </div>

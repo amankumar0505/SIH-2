@@ -147,29 +147,32 @@ export default function Onboarding({ project, onSaveProject, onGeneratePlan, sho
   };
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-6 max-w-6xl">
       {/* Page Title & Preset Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-1">
+      <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-3 pb-1">
         <div>
-          <div className="text-[12px] font-bold text-slate-500 uppercase tracking-wider">
-            Enterprise Onboarding Questionnaire
+          <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wider flex items-center gap-2">
+            <span>Enterprise Onboarding Questionnaire</span>
+            <span className="text-[#1E4E8C] bg-blue-50 text-[10.5px] px-2 py-0.5 rounded border border-blue-200 font-bold">
+              Maharashtra Industrial Act Evaluation
+            </span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-[#1B365D]">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-0.5">
             Project Profile & Classification
           </h1>
-          <p className="text-[14px] text-slate-600 mt-0.5">
+          <p className="text-xs sm:text-sm text-slate-600 mt-1">
             Answer the questionnaire to generate your statutory clearance checklist, dependency roadmap, and required document package.
           </p>
         </div>
 
         {/* Demo Presets Bar */}
-        <div className="flex items-center gap-1.5 bg-white p-1.5 rounded-[3px] border border-slate-300 shadow-sm text-xs">
-          <span className="text-[11.5px] font-bold text-slate-500 uppercase px-1.5">Load Demo:</span>
+        <div className="flex items-center gap-1.5 bg-white p-1.5 rounded-lg border border-slate-300 shadow-2xs text-xs">
+          <span className="text-[11px] font-bold text-slate-500 uppercase px-2">Load Demo:</span>
           <button
             type="button"
             onClick={() => handleApplyPreset('food')}
-            className={`px-3 py-1 rounded-[2px] text-[12.5px] font-semibold transition-colors ${
-              formData.industry === 'Food Processing' ? 'bg-[#1B365D] text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+            className={`px-3 py-1.5 rounded-md text-xs font-bold transition-all ${
+              formData.industry === 'Food Processing' ? 'bg-[#1E4E8C] text-white shadow-2xs' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
             }`}
           >
             Food Unit (Pune)
@@ -177,8 +180,8 @@ export default function Onboarding({ project, onSaveProject, onGeneratePlan, sho
           <button
             type="button"
             onClick={() => handleApplyPreset('mfg')}
-            className={`px-3 py-1 rounded-[2px] text-[12.5px] font-semibold transition-colors ${
-              formData.industry === 'Manufacturing' ? 'bg-[#1B365D] text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+            className={`px-3 py-1.5 rounded-md text-xs font-bold transition-all ${
+              formData.industry === 'Manufacturing' ? 'bg-[#1E4E8C] text-white shadow-2xs' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
             }`}
           >
             Heavy Eng. (Nagpur)
@@ -186,8 +189,8 @@ export default function Onboarding({ project, onSaveProject, onGeneratePlan, sho
           <button
             type="button"
             onClick={() => handleApplyPreset('it')}
-            className={`px-3 py-1 rounded-[2px] text-[12.5px] font-semibold transition-colors ${
-              formData.industry === 'IT/ITES' ? 'bg-[#1B365D] text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+            className={`px-3 py-1.5 rounded-md text-xs font-bold transition-all ${
+              formData.industry === 'IT/ITES' ? 'bg-[#1E4E8C] text-white shadow-2xs' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
             }`}
           >
             IT Office (Pune)
@@ -196,7 +199,7 @@ export default function Onboarding({ project, onSaveProject, onGeneratePlan, sho
       </div>
 
       {/* Horizontal Step Indicator */}
-      <div className="bg-white rounded-[3px] border border-[#CBD5E1] p-3.5 shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
+      <div className="bg-white rounded-xl border border-slate-200 p-3 shadow-xs">
         <div className="grid grid-cols-5 gap-2 text-xs">
           {[
             { num: 1, label: "1. Industry" },
@@ -208,12 +211,12 @@ export default function Onboarding({ project, onSaveProject, onGeneratePlan, sho
             <button
               key={s.num}
               onClick={() => setCurrentStep(s.num)}
-              className={`py-2 px-2 rounded-[2px] text-center font-bold border transition-all text-[13px] ${
+              className={`py-2 px-2.5 rounded-lg text-center font-bold border transition-all text-xs ${
                 currentStep === s.num
-                  ? 'bg-[#1B365D] text-white border-[#1B365D] shadow-sm'
+                  ? 'bg-[#1E4E8C] text-white border-[#1E4E8C] shadow-xs'
                   : currentStep > s.num
-                  ? 'bg-emerald-50 text-emerald-900 border-emerald-300'
-                  : 'bg-slate-50 text-slate-600 border-slate-200'
+                  ? 'bg-emerald-50 text-emerald-800 border-emerald-300'
+                  : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100'
               }`}
             >
               <div className="truncate">{s.label}</div>
@@ -225,7 +228,7 @@ export default function Onboarding({ project, onSaveProject, onGeneratePlan, sho
       {/* Main Form + Live Summary Split */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
         {/* Left Form Area */}
-        <div className="lg:col-span-8 bg-white rounded-[3px] border border-[#CBD5E1] p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
+        <div className="lg:col-span-8 bg-white rounded-xl border border-slate-200 p-6 shadow-xs">
           {/* STEP 1: INDUSTRY */}
           {currentStep === 1 && (
             <div className="space-y-4">
@@ -627,7 +630,7 @@ export default function Onboarding({ project, onSaveProject, onGeneratePlan, sho
               <button
                 type="button"
                 onClick={handleNext}
-                className="px-5 py-2 bg-[#1B365D] hover:bg-[#142947] text-white rounded-[3px] text-[13px] font-semibold flex items-center gap-1.5 shadow-sm"
+                className="px-5 py-2.5 bg-[#1E4E8C] hover:bg-[#143D6F] text-white rounded-lg text-xs font-bold flex items-center gap-1.5 shadow-xs transition-colors"
               >
                 <span>Continue to Step {currentStep + 1}</span>
                 <ArrowRight className="w-4 h-4" />
@@ -636,9 +639,9 @@ export default function Onboarding({ project, onSaveProject, onGeneratePlan, sho
               <button
                 type="button"
                 onClick={handleFinish}
-                className="px-6 py-2.5 bg-[#1B365D] hover:bg-[#142947] text-white rounded-[3px] text-[14px] font-bold flex items-center gap-2 shadow-sm"
+                className="px-6 py-2.5 bg-[#1E4E8C] hover:bg-[#143D6F] text-white rounded-lg text-xs font-bold flex items-center gap-2 shadow-xs transition-colors"
               >
-                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                <CheckCircle2 className="w-4 h-4 text-emerald-300" />
                 <span>Generate Approval Plan</span>
               </button>
             )}
@@ -647,38 +650,38 @@ export default function Onboarding({ project, onSaveProject, onGeneratePlan, sho
 
         {/* Right Summary Panel */}
         <div className="lg:col-span-4 space-y-4">
-          <div className="bg-white rounded-[3px] border border-[#CBD5E1] p-4 shadow-[0_1px_2px_rgba(0,0,0,0.04)] text-xs">
-            <h3 className="font-bold text-slate-900 text-[15px] pb-2 border-b border-slate-200 flex items-center gap-1.5">
-              <Building2 className="w-4 h-4 text-[#1B365D]" />
-              Project Summary
+          <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-xs text-xs">
+            <h3 className="font-bold text-slate-900 text-sm pb-2.5 border-b border-slate-100 flex items-center gap-1.5">
+              <Building2 className="w-4 h-4 text-[#1E4E8C]" />
+              Project Live Summary
             </h3>
 
-            <div className="mt-3 space-y-2.5">
+            <div className="mt-3.5 space-y-3">
               <div>
-                <span className="text-slate-500 block text-[11.5px] font-medium">Enterprise Name</span>
-                <span className="font-bold text-slate-900 text-[13.5px]">{formData.name}</span>
+                <span className="text-slate-500 block text-[11px] font-bold uppercase">Enterprise Name</span>
+                <span className="font-bold text-slate-900 text-xs mt-0.5 block">{formData.name}</span>
               </div>
               <div>
-                <span className="text-slate-500 block text-[11.5px] font-medium">Industry</span>
-                <span className="font-semibold text-[#1B365D] bg-blue-50 px-2 py-0.5 rounded-[2px] inline-block mt-0.5 text-[12.5px] border border-blue-200">
+                <span className="text-slate-500 block text-[11px] font-bold uppercase">Industry Classification</span>
+                <span className="font-bold text-[#1E4E8C] bg-blue-50 px-2 py-0.5 rounded text-[11px] border border-blue-200 inline-block mt-0.5">
                   {formData.industry}
                 </span>
               </div>
               <div>
-                <span className="text-slate-500 block text-[11.5px] font-medium">Location</span>
-                <span className="font-semibold text-slate-800 text-[13px]">{formData.district}, Maharashtra</span>
+                <span className="text-slate-500 block text-[11px] font-bold uppercase">Location</span>
+                <span className="font-bold text-slate-900 text-xs mt-0.5 block">{formData.district}, Maharashtra</span>
               </div>
               <div>
-                <span className="text-slate-500 block text-[11.5px] font-medium">Investment</span>
-                <span className="font-semibold text-slate-800 text-[13px]">₹{formData.investmentValueCr} Cr</span>
+                <span className="text-slate-500 block text-[11px] font-bold uppercase">Capital Outlay</span>
+                <span className="font-bold text-slate-900 text-xs mt-0.5 block font-mono">₹{formData.investmentValueCr} Cr</span>
               </div>
               <div>
-                <span className="text-slate-500 block text-[11.5px] font-medium">Employees</span>
-                <span className="font-semibold text-slate-800 text-[13px]">{formData.employees} Workers</span>
+                <span className="text-slate-500 block text-[11px] font-bold uppercase">Workforce</span>
+                <span className="font-bold text-slate-900 text-xs mt-0.5 block">{formData.employees} Workers</span>
               </div>
             </div>
 
-            <div className="mt-4 pt-3 border-t border-slate-200 text-[12px] text-slate-500">
+            <div className="mt-4 pt-3 border-t border-slate-100 text-[11px] text-slate-500 font-medium">
               Deterministic single-window evaluation based on statutory threshold criteria.
             </div>
           </div>
