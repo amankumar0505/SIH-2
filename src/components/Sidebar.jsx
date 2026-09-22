@@ -25,8 +25,8 @@ export default function Sidebar({
   isMobileMenuOpen,
   onCloseMobileMenu
 }) {
-  // Balanced professional navigation with clear groups and status indicators
-  const navSections = [
+  // Balanced professional navigation tailored to current role
+  const entrepreneurSections = [
     {
       title: "Core Portal",
       items: [
@@ -53,6 +53,32 @@ export default function Sidebar({
     }
   ];
 
+  const governmentSections = [
+    {
+      title: "Oversight Desk",
+      items: [
+        { id: "gov-dashboard", label: "State SLA Dashboard", icon: LayoutDashboard },
+        { id: "gov-applications", label: "Application Matrix", icon: Files, badge: "All State" },
+      ]
+    },
+    {
+      title: "Enforcement & SLA",
+      items: [
+        { id: "gov-delayed", label: "Overdue Cases", icon: Clock, alert: true, badge: "42 Cases" },
+        { id: "gov-analytics", label: "Throughput Analytics", icon: GitBranch },
+        { id: "gov-rules", label: "Statutory Policy Rules", icon: FileCheck },
+      ]
+    },
+    {
+      title: "System & Architecture",
+      items: [
+        { id: "architecture", label: "DPDP & Architecture", icon: ShieldCheck },
+      ]
+    }
+  ];
+
+  const navSections = currentRole === 'government' ? governmentSections : entrepreneurSections;
+
   const handleNavClick = (routeId) => {
     onNavigate(routeId);
     onCloseMobileMenu?.();
@@ -69,9 +95,9 @@ export default function Sidebar({
         />
       )}
 
-      {/* Modern Maharashtra Left Sidebar */}
+      {/* Modern Maharashtra Left Sidebar (Persistent Desktop, Drawer on Mobile) */}
       <aside className={`
-        fixed md:static top-0 z-30
+        fixed md:static inset-y-0 left-0 z-30
         w-64 shrink-0 min-h-screen md:min-h-full
         bg-white border-r border-[#E2E8F0]
         flex flex-col justify-between

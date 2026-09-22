@@ -27,6 +27,16 @@ export default function Header({
   const [showProjectMenu, setShowProjectMenu] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [openDropdown, setOpenDropdown] = useState(null);
+
+  const handleTabClick = (routeId) => {
+    onNavigate(routeId);
+    setOpenDropdown(null);
+  };
+
+  const toggleDropdown = (name) => {
+    setOpenDropdown(prev => prev === name ? null : name);
+  };
 
   const initials = activeProject?.name
     ? activeProject.name
@@ -156,6 +166,19 @@ export default function Header({
               </p>
             </div>
           </div>
+        </div>
+        {/* Center: Search input in the top header */}
+        <div className="flex-1 max-w-md mx-2 sm:mx-4 hidden md:block">
+          <form onSubmit={handleSearchSubmit} className="relative w-full">
+            <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-2.5" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search approvals, acts, NOCs..."
+              className="w-full pl-8 pr-3 py-1.5 bg-slate-50 hover:bg-white border border-slate-300 rounded-lg text-xs placeholder:text-slate-400 focus:outline-none focus:border-[#1E4E8C] focus:bg-white shadow-2xs transition-colors"
+            />
+          </form>
         </div>
 
         {/* Right: Role Switcher Pill, Notifications, Help Desk & Entity Profile */}
@@ -299,84 +322,16 @@ export default function Header({
         </div>
       </div>
 
-      {/* 3. LOWER NAVIGATION & SEARCH BAR */}
-      <div className="bg-[#FAFBFD] px-3 sm:px-6 py-2 flex flex-wrap items-center justify-between gap-3 border-t border-slate-200">
-        {/* Navigation Tabs with Active Underline Accent */}
-        <div className="flex items-center gap-1 sm:gap-2 text-[13px] font-semibold text-slate-700 overflow-x-auto">
-          {/* Dashboard Tab */}
-          <button 
-            onClick={() => onNavigate('dashboard')}
-            className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-md font-bold transition-all relative ${
-              currentRoute === 'dashboard' || currentRoute === 'gov-dashboard'
-                ? 'bg-blue-50 text-[#1E4E8C] border-b-2 border-orange-500 rounded-b-none' 
-                : 'hover:text-[#1E4E8C] hover:bg-slate-100'
-            }`}
-          >
-            <LayoutGrid className="w-4 h-4 text-[#1E4E8C]" />
-            <span>Dashboard</span>
-          </button>
-
-          {/* Project Dropdown Trigger */}
-          <button 
-            onClick={() => onNavigate('onboarding')}
-            className="flex items-center gap-1 px-3 py-1.5 rounded-md hover:bg-slate-100 text-slate-700 hover:text-[#1E4E8C] transition-colors"
-          >
-            <span>Project</span>
-            <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
-          </button>
-
-          {/* Approvals Tab with Badge (9) */}
-          <button 
-            onClick={() => onNavigate('required-approvals')}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md transition-colors ${
-              currentRoute === 'required-approvals' || currentRoute === 'roadmap'
-                ? 'bg-blue-50 text-[#1E4E8C] font-bold'
-                : 'hover:bg-slate-100 hover:text-[#1E4E8C]'
-            }`}
-          >
-            <span>Approvals</span>
-            <span className="bg-blue-100 text-[#1E4E8C] px-1.5 py-0.2 rounded text-[11px] font-bold font-mono">
-              9
-            </span>
-            <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
-          </button>
-
-          {/* Applications Tab */}
-          <button 
-            onClick={() => onNavigate('applications')}
-            className={`flex items-center gap-1 px-3 py-1.5 rounded-md transition-colors ${
-              currentRoute === 'applications' || currentRoute === 'gov-applications'
-                ? 'bg-blue-50 text-[#1E4E8C] font-bold'
-                : 'hover:bg-slate-100 hover:text-[#1E4E8C]'
-            }`}
-          >
-            <span>Applications</span>
-            <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
-          </button>
-
-          {/* Compliance Tab */}
-          <button 
-            onClick={() => onNavigate('renewals')}
-            className={`flex items-center gap-1 px-3 py-1.5 rounded-md transition-colors ${
-              currentRoute === 'renewals' || currentRoute === 'calendar'
-                ? 'bg-blue-50 text-[#1E4E8C] font-bold'
-                : 'hover:bg-slate-100 hover:text-[#1E4E8C]'
-            }`}
-          >
-            <span>Compliance</span>
-            <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
-          </button>
-        </div>
-
-        {/* Right Search Input Box */}
-        <form onSubmit={handleSearchSubmit} className="relative w-full sm:w-64 md:w-72">
+      {/* Mobile Search bar row (below md screens) */}
+      <div className="md:hidden px-3 py-2 bg-slate-50 border-b border-slate-200">
+        <form onSubmit={handleSearchSubmit} className="relative w-full">
           <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-2.5" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search approvals, acts, NOCs"
-            className="w-full pl-8 pr-3 py-1.5 bg-white border border-slate-300 rounded-lg text-xs placeholder:text-slate-400 focus:outline-none focus:border-[#1E4E8C] shadow-2xs"
+            placeholder="Search approvals, acts, NOCs..."
+            className="w-full pl-8 pr-3 py-1.5 bg-white border border-slate-300 rounded-lg text-xs placeholder:text-slate-400 focus:outline-none focus:border-[#1E4E8C]"
           />
         </form>
       </div>
