@@ -96,6 +96,7 @@ export default function Applications({ project, applications, onSelectApplicatio
                 <th className="py-3 px-4">Application ID</th>
                 <th className="py-3 px-4">Clearance Name</th>
                 <th className="py-3 px-4">Department</th>
+                <th className="py-3 px-4">Risk Category</th>
                 <th className="py-3 px-4">Submitted Date</th>
                 <th className="py-3 px-4">Statutory SLA</th>
                 <th className="py-3 px-4">Status</th>
@@ -110,13 +111,35 @@ export default function Applications({ project, applications, onSelectApplicatio
                   className="hover:bg-slate-50 cursor-pointer transition-colors"
                 >
                   <td className="py-3.5 px-4 font-mono font-bold text-[#1E4E8C]">
-                    {app.id}
+                    <div>{app.id}</div>
+                    {app.jointInspectionId && (
+                      <span className="text-[10px] font-sans font-bold bg-blue-100 text-blue-800 px-1.5 py-0.5 rounded border border-blue-200 block w-max mt-0.5">
+                        CIS Joint Site Visit
+                      </span>
+                    )}
                   </td>
                   <td className="py-3.5 px-4 font-bold text-slate-900">
-                    {app.approvalName}
+                    <div>{app.approvalName}</div>
+                    {app.queryDetails && !app.queryDetails.isResolved && (
+                      <span className="text-[10px] text-amber-800 font-bold bg-amber-100 px-1.5 py-0.5 rounded border border-amber-300 inline-flex items-center gap-1 mt-0.5">
+                        <AlertTriangle className="w-2.5 h-2.5 text-amber-700" />
+                        Query Pending Response
+                      </span>
+                    )}
                   </td>
                   <td className="py-3.5 px-4 text-slate-600 font-medium">
                     {app.department}
+                  </td>
+                  <td className="py-3.5 px-4">
+                    <span className={`px-2 py-0.5 rounded text-[10.5px] font-bold border ${
+                      app.riskLevel === 'GREEN' 
+                        ? 'bg-emerald-50 text-emerald-800 border-emerald-300' 
+                        : app.riskLevel === 'RED' 
+                        ? 'bg-red-50 text-red-900 border-red-300' 
+                        : 'bg-amber-50 text-amber-900 border-amber-300'
+                    }`}>
+                      {app.riskLevel ? `${app.riskLevel} RISK` : 'STANDARD'}
+                    </span>
                   </td>
                   <td className="py-3.5 px-4 font-mono text-slate-500">
                     {app.submittedDate || '—'}
@@ -137,7 +160,7 @@ export default function Applications({ project, applications, onSelectApplicatio
                       }}
                       className="text-xs font-bold text-[#1E4E8C] hover:text-[#143D6F] hover:underline"
                     >
-                      Track Details →
+                      {app.queryDetails && !app.queryDetails.isResolved ? "Respond to Query →" : "Track Details →"}
                     </button>
                   </td>
                 </tr>

@@ -122,7 +122,7 @@ export default function DepartmentApplications({ onSelectCase, showToast }) {
                 <th className="py-3 px-4">App ID</th>
                 <th className="py-3 px-4">Enterprise Name</th>
                 <th className="py-3 px-4">Industry</th>
-                <th className="py-3 px-4">District</th>
+                <th className="py-3 px-4">Risk Scrutiny</th>
                 <th className="py-3 px-4">Approval Type</th>
                 <th className="py-3 px-4 text-center">Age</th>
                 <th className="py-3 px-4">Status</th>
@@ -143,13 +143,22 @@ export default function DepartmentApplications({ onSelectCase, showToast }) {
                     {item.id}
                   </td>
                   <td className="py-3.5 px-4 font-bold text-slate-900">
-                    {item.companyName}
+                    <div>{item.companyName}</div>
+                    <span className="text-[11px] text-slate-500 font-normal">{item.district} District</span>
                   </td>
                   <td className="py-3.5 px-4 text-slate-600 font-medium">
                     {item.industry}
                   </td>
-                  <td className="py-3.5 px-4 text-slate-600 font-medium">
-                    {item.district}
+                  <td className="py-3.5 px-4">
+                    <span className={`px-2 py-0.5 rounded text-[10px] font-bold border ${
+                      item.riskLevel === 'GREEN' 
+                        ? 'bg-emerald-50 text-emerald-800 border-emerald-300' 
+                        : item.riskLevel === 'RED' 
+                        ? 'bg-red-50 text-red-900 border-red-300' 
+                        : 'bg-amber-50 text-amber-900 border-amber-300'
+                    }`}>
+                      {item.riskLevel ? `${item.riskLevel} RISK` : 'MEDIUM'}
+                    </span>
                   </td>
                   <td className="py-3.5 px-4 text-slate-800 font-medium">
                     {item.approval}
@@ -264,10 +273,10 @@ export default function DepartmentApplications({ onSelectCase, showToast }) {
                     Raise Document Query
                   </button>
                   <button
-                    onClick={() => handleOfficerAction("Schedule Physical Inspection")}
+                    onClick={() => handleOfficerAction("Synchronize Central Joint Inspection (CIS)")}
                     className="px-3.5 py-1.5 bg-blue-800 hover:bg-blue-900 text-white rounded-[2px] text-[12.5px] font-bold shadow-sm"
                   >
-                    Schedule Inspection
+                    Schedule CIS Joint Inspection
                   </button>
                 </div>
 

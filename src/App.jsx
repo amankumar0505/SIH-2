@@ -481,6 +481,67 @@ export default function App() {
         application={selectedApplication}
         isOpen={Boolean(selectedApplication)}
         onClose={() => setSelectedApplication(null)}
+        onResolveQuery={(appId, resolutionData) => {
+          setApplicationsState(prev => prev.map(a => {
+            if (a.id === appId) {
+              return {
+                ...a,
+                status: 'UNDER REVIEW',
+                stage: 'Applicant Clarification Submitted',
+                nextActionText: 'Officer re-scrutinizing revised drawings',
+                queryDetails: a.queryDetails ? { ...a.queryDetails, isResolved: true } : null,
+                timeline: [
+                  ...a.timeline,
+                  {
+                    step: 'Applicant Clarification Submitted',
+                    date: 'Today',
+                    status: 'COMPLETED',
+                    remarks: `Uploaded ${resolutionData.fileName}. Clarification: "${resolutionData.note}"`
+                  }
+                ]
+              };
+            }
+            return a;
+          }));
+          if (selectedApplication?.id === appId) {
+            setSelectedApplication(prev => prev ? ({
+              ...prev,
+              status: 'UNDER REVIEW',
+              stage: 'Applicant Clarification Submitted',
+              queryDetails: prev.queryDetails ? { ...prev.queryDetails, isResolved: true } : null,
+              timeline: [
+                ...prev.timeline,
+                {
+                  step: 'Applicant Clarification Submitted',
+                  date: 'Today',
+                  status: 'COMPLETED',
+                  remarks: `Uploaded ${resolutionData.fileName}. Clarification: "${resolutionData.note}"`
+                }
+              ]
+            }) : null);
+          }
+        }}
+        onRaiseGrievance={(appId, token) => {
+          setApplicationsState(prev => prev.map(a => {
+            if (a.id === appId) {
+              return {
+                ...a,
+                grievanceToken: token,
+                timeline: [
+                  ...a.timeline,
+                  {
+                    step: `Statutory Grievance Lodged (${token})`,
+                    date: 'Today',
+                    status: 'IN_PROGRESS',
+                    remarks: 'Escalated to District Collector / Secretary under Maharashtra Right to Public Services Act.'
+                  }
+                ]
+              };
+            }
+            return a;
+          }));
+        }}
+        showToast={showToast}
       />
 
       <LegalModal
