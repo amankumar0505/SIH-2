@@ -43,6 +43,7 @@ export const departmentApplicationsList = [
     delay: "+22 days",
     status: "OVERDUE",
     priority: "High",
+    riskLevel: "RED", // RED (High Risk), ORANGE (Medium Risk), GREEN (Low Risk / Fast-track)
     assignedOfficer: "R. K. Verma (SRO Thane)",
     bottleneckReason: "Effluent treatment scheme vetting pending with Central Technical Committee."
   },
@@ -59,6 +60,7 @@ export const departmentApplicationsList = [
     delay: "+38 days",
     status: "OVERDUE",
     priority: "High",
+    riskLevel: "ORANGE",
     assignedOfficer: "A. M. Patil (SRO Pune II)",
     bottleneckReason: "Awaiting final Consent Committee deliberation roster."
   },
@@ -75,6 +77,7 @@ export const departmentApplicationsList = [
     delay: "+30 days",
     status: "OVERDUE",
     priority: "High",
+    riskLevel: "ORANGE",
     assignedOfficer: "S. N. Joshi (SRO Nagpur)",
     bottleneckReason: "Field inspection air sample analysis report delay."
   },
@@ -91,6 +94,7 @@ export const departmentApplicationsList = [
     delay: "+14 days",
     status: "OVERDUE",
     priority: "Urgent",
+    riskLevel: "RED",
     assignedOfficer: "M. T. Kadam (SRO Raigad)",
     bottleneckReason: "Heavy Red category public hearing clearance document pending."
   },
@@ -107,6 +111,7 @@ export const departmentApplicationsList = [
     delay: "+15 days",
     status: "OVERDUE",
     priority: "Medium",
+    riskLevel: "ORANGE",
     assignedOfficer: "B. P. Shinde (Dy. Director DISH)",
     bottleneckReason: "Structural engineer certification revision requested."
   },
@@ -123,6 +128,7 @@ export const departmentApplicationsList = [
     delay: "+6 days",
     status: "OVERDUE",
     priority: "High",
+    riskLevel: "RED",
     assignedOfficer: "V. R. Joshi (Div. Fire Officer)",
     bottleneckReason: "Solvent storage sprinkler layout inspection pending."
   },
@@ -139,6 +145,7 @@ export const departmentApplicationsList = [
     delay: "0 days",
     status: "IN_REVIEW",
     priority: "Standard",
+    riskLevel: "GREEN",
     assignedOfficer: "P. N. Shinde (Town Planner)",
     bottleneckReason: "Within standard SLA timeline."
   },
@@ -155,6 +162,7 @@ export const departmentApplicationsList = [
     delay: "0 days",
     status: "IN_REVIEW",
     priority: "Standard",
+    riskLevel: "GREEN",
     assignedOfficer: "K. R. Jagtap (EE MSEDCL)",
     bottleneckReason: "Within standard SLA timeline."
   },
@@ -171,7 +179,51 @@ export const departmentApplicationsList = [
     delay: "+6 days",
     status: "OVERDUE",
     priority: "Medium",
+    riskLevel: "ORANGE",
     assignedOfficer: "D. B. Gaikwad (Inspector of Boilers)",
     bottleneckReason: "Hydro-test witness date rescheduled."
   }
 ];
+
+export const jointInspectionSchedules = [
+  {
+    id: "CIS-2026-PN-089",
+    unitName: "ABC Food Processing Pvt Ltd",
+    plotNumber: "Plot A-42/1, Chakan MIDC Phase II",
+    scheduledDate: "04 September 2026",
+    scheduledTime: "11:00 AM IST",
+    participatingDepartments: [
+      { name: "Maharashtra Fire Services (MFES)", officer: "V. R. Joshi (Div. Fire Officer)", status: "CONFIRMED" },
+      { name: "Directorate of Industrial Safety (DISH)", officer: "D. B. Gaikwad (Dy. Director)", status: "CONFIRMED" },
+      { name: "Pollution Control Board (MPCB)", officer: "A. M. Patil (SRO Pune II)", status: "CONFIRMED" }
+    ],
+    status: "SYNCHRONIZED",
+    leadDepartment: "DISH (Factory Safety)",
+    checklistItems: [
+      "Effluent zero-discharge piping verification",
+      "Fire hydrant static pressure test (7.5 bar minimum)",
+      "Emergency escape route & ventilation audit",
+      "Boiler room explosion-proof electrical fittings"
+    ],
+    singleReportMandate: "Mandatory unified inspection report upload within 48h under Maharashtra CIS Guidelines."
+  },
+  {
+    id: "CIS-2026-TH-041",
+    unitName: "Sahyadri Chemical Formulations Ltd",
+    plotNumber: "Plot C-14, Tarapur MIDC",
+    scheduledDate: "08 September 2026",
+    scheduledTime: "10:30 AM IST",
+    participatingDepartments: [
+      { name: "Pollution Control Board (MPCB)", officer: "R. K. Verma (SRO Thane)", status: "CONFIRMED" },
+      { name: "Directorate of Industrial Safety (DISH)", officer: "S. K. More (Inspector)", status: "AWAITING_CONFIRMATION" }
+    ],
+    status: "PENDING_OFFICER_ROSTER",
+    leadDepartment: "MPCB (Pollution)",
+    checklistItems: [
+      "Scrubber emission online continuous monitoring",
+      "Hazardous waste secured landfill transit manifests"
+    ],
+    singleReportMandate: "Mandatory unified inspection report upload within 48h."
+  }
+];
+

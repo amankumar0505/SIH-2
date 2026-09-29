@@ -33,53 +33,56 @@ export default function Analytics() {
   ];
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-6 max-w-6xl">
       {/* Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-1">
+      <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-3 pb-1">
         <div>
-          <div className="text-[12px] font-bold text-slate-500 uppercase tracking-wider">
-            Operational Intelligence & SLA Monitoring
+          <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wider flex items-center gap-2">
+            <span>Operational Intelligence & SLA Monitoring</span>
+            <span className="text-[#1E4E8C] bg-blue-50 text-[10.5px] px-2 py-0.5 rounded border border-blue-200 font-bold">
+              6 Regulatory Authorities
+            </span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-[#1B365D]">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-0.5">
             Processing Time & Workload Analytics
           </h1>
-          <p className="text-[14px] text-slate-600 mt-0.5">
+          <p className="text-xs sm:text-sm text-slate-600 mt-1">
             Inter-departmental clearance throughput, officer allocation efficiency, and bottleneck diagnostics.
           </p>
         </div>
 
-        <span className="text-[11px] uppercase font-bold bg-slate-100 text-slate-800 border border-slate-300 px-3 py-1 rounded-[2px]">
-          Prototype Dataset
+        <span className="text-xs uppercase font-bold bg-slate-100 text-slate-800 border border-slate-300 px-3 py-1.5 rounded-lg shadow-2xs font-mono">
+          State Clearance Dataset
         </span>
       </div>
 
       {/* 2-Column Analytics Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
         {/* Chart 1: Average Processing Time vs Standard SLA */}
-        <div className="lg:col-span-6 bg-white rounded-[3px] border border-[#CBD5E1] p-5 shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
-          <div className="flex items-center justify-between pb-2 border-b border-slate-200">
+        <div className="lg:col-span-6 bg-white rounded-xl border border-slate-200 p-5 sm:p-6 shadow-xs">
+          <div className="flex items-center justify-between pb-3 border-b border-slate-100">
             <div>
-              <h2 className="text-[16px] font-bold text-slate-900">
+              <h2 className="text-sm sm:text-base font-bold text-slate-900">
                 Department Average Processing Time (Days)
               </h2>
-              <p className="text-[12.5px] text-slate-500">Average actual turnaround days vs standard benchmarks</p>
+              <p className="text-xs text-slate-500 mt-0.5">Average actual turnaround days vs standard benchmarks</p>
             </div>
-            <span className="text-[11.5px] font-bold text-slate-600">Benchmark: ≤14d</span>
+            <span className="text-xs font-bold text-slate-600 bg-slate-100 px-2 py-0.5 rounded font-mono">Benchmark: ≤14d</span>
           </div>
 
           <div className="h-64 mt-4 text-xs">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={departmentProcessingTimes} margin={{ top: 10, right: 10, left: -20, bottom: 20 }}>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E2E8F0" />
-                <XAxis dataKey="department" tick={{ fontSize: 10.5, fill: '#334155' }} angle={-15} textAnchor="end" />
-                <YAxis tick={{ fontSize: 11.5, fill: '#334155' }} />
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#F1F5F9" />
+                <XAxis dataKey="department" tick={{ fontSize: 10.5, fill: '#64748B' }} angle={-15} textAnchor="end" />
+                <YAxis tick={{ fontSize: 11, fill: '#64748B' }} />
                 <Tooltip 
                   formatter={(v) => [`${v} Days`, 'Turnaround Time']}
-                  contentStyle={{ backgroundColor: '#1B365D', color: '#fff', fontSize: '12px', borderRadius: '3px' }}
+                  contentStyle={{ backgroundColor: '#07172C', color: '#fff', fontSize: '11px', borderRadius: '8px', border: 'none' }}
                 />
-                <Bar dataKey="avgDays" radius={[2, 2, 0, 0]}>
+                <Bar dataKey="avgDays" radius={[3, 3, 0, 0]}>
                   {departmentProcessingTimes.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
+                    <Cell key={`cell-${index}`} fill={entry.color || '#1E4E8C'} />
                   ))}
                 </Bar>
               </BarChart>
@@ -88,29 +91,29 @@ export default function Analytics() {
         </div>
 
         {/* Chart 2: Department Workload & Overdue Backlog */}
-        <div className="lg:col-span-6 bg-white rounded-[3px] border border-[#CBD5E1] p-5 shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
-          <div className="flex items-center justify-between pb-2 border-b border-slate-200">
+        <div className="lg:col-span-6 bg-white rounded-xl border border-slate-200 p-5 sm:p-6 shadow-xs">
+          <div className="flex items-center justify-between pb-3 border-b border-slate-100">
             <div>
-              <h2 className="text-[16px] font-bold text-slate-900">
+              <h2 className="text-sm sm:text-base font-bold text-slate-900">
                 Department Caseload & Overdue Backlog
               </h2>
-              <p className="text-[12.5px] text-slate-500">Active pending reviews vs overdue cases</p>
+              <p className="text-xs text-slate-500 mt-0.5">Active pending reviews vs overdue cases</p>
             </div>
-            <span className="text-[11.5px] font-bold text-red-800">42 Overdue Total</span>
+            <span className="text-xs font-bold text-red-800 bg-red-50 border border-red-200 px-2 py-0.5 rounded font-mono">42 Overdue Total</span>
           </div>
 
           <div className="h-64 mt-4 text-xs">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={workloadData} margin={{ top: 10, right: 10, left: -20, bottom: 20 }}>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E2E8F0" />
-                <XAxis dataKey="name" tick={{ fontSize: 10.5, fill: '#334155' }} angle={-15} textAnchor="end" />
-                <YAxis tick={{ fontSize: 11.5, fill: '#334155' }} />
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#F1F5F9" />
+                <XAxis dataKey="name" tick={{ fontSize: 10.5, fill: '#64748B' }} angle={-15} textAnchor="end" />
+                <YAxis tick={{ fontSize: 11, fill: '#64748B' }} />
                 <Tooltip 
-                  contentStyle={{ backgroundColor: '#1B365D', color: '#fff', fontSize: '12px', borderRadius: '3px' }}
+                  contentStyle={{ backgroundColor: '#07172C', color: '#fff', fontSize: '11px', borderRadius: '8px', border: 'none' }}
                 />
-                <Legend wrapperStyle={{ fontSize: '12px', paddingTop: '8px' }} />
-                <Bar dataKey="pending" name="Pending Scrutiny" fill="#1B365D" radius={[2, 2, 0, 0]} />
-                <Bar dataKey="overdue" name="SLA Overdue" fill="#991B1B" radius={[2, 2, 0, 0]} />
+                <Legend wrapperStyle={{ fontSize: '11px', paddingTop: '8px' }} />
+                <Bar dataKey="pending" name="Pending Scrutiny" fill="#1E4E8C" radius={[3, 3, 0, 0]} />
+                <Bar dataKey="overdue" name="SLA Overdue" fill="#DC2626" radius={[3, 3, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -118,59 +121,62 @@ export default function Analytics() {
       </div>
 
       {/* Detailed Workload Breakdown Table */}
-      <div className="bg-white rounded-[3px] border border-[#CBD5E1] shadow-[0_1px_2px_rgba(0,0,0,0.04)] overflow-hidden">
-        <div className="p-4 bg-slate-100/70 border-b border-slate-300 flex items-center justify-between">
-          <h2 className="text-[14px] font-bold text-slate-900 uppercase tracking-wider">
+      <div className="bg-white rounded-xl border border-slate-200 shadow-xs overflow-hidden">
+        <div className="p-4 bg-slate-50/70 border-b border-slate-200 flex items-center justify-between">
+          <h2 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
             Inter-Departmental SLA Adherence Matrix
           </h2>
-          <span className="text-[12.5px] text-slate-600 font-medium">6 Integrated Regulatory Authorities</span>
+          <span className="text-xs text-slate-500 font-bold">6 Integrated Regulatory Authorities</span>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-slate-100 text-slate-700 border-b border-slate-300">
-                <th className="py-2.5 px-4 font-bold text-[13.5px]">Department Name</th>
-                <th className="py-2.5 px-4 text-center font-bold text-[13.5px]">Total Inflow</th>
-                <th className="py-2.5 px-4 text-center font-bold text-[13.5px]">Pending Scrutiny</th>
-                <th className="py-2.5 px-4 text-center font-bold text-[13.5px]">SLA Overdue</th>
-                <th className="py-2.5 px-4 text-center font-bold text-[13.5px]">Avg Days</th>
-                <th className="py-2.5 px-4 text-center font-bold text-[13.5px]">Benchmark SLA</th>
-                <th className="py-2.5 px-4 font-bold text-[13.5px]">Bottleneck Status</th>
+              <tr className="bg-slate-50/50 text-slate-500 border-b border-slate-200 uppercase text-[11px] font-bold tracking-wider">
+                <th className="py-3 px-4">Department Name</th>
+                <th className="py-3 px-4 text-center">Total Inflow</th>
+                <th className="py-3 px-4 text-center">Pending Scrutiny</th>
+                <th className="py-3 px-4 text-center">SLA Overdue</th>
+                <th className="py-3 px-4 text-center">Avg Days</th>
+                <th className="py-3 px-4 text-center">Benchmark SLA</th>
+                <th className="py-3 px-4">Bottleneck Status</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-200">
+            <tbody className="divide-y divide-slate-100 text-xs">
               {departmentProcessingTimes.map((d, idx) => (
-                <tr key={idx} className="hover:bg-slate-50">
-                  <td className="py-3 px-4 font-bold text-slate-900 text-[14px]">
+                <tr key={idx} className="hover:bg-slate-50 transition-colors">
+                  <td className="py-3.5 px-4 font-bold text-slate-900">
                     {d.department}
                   </td>
-                  <td className="py-3 px-4 text-center font-bold text-slate-900 text-[13.5px]">
+                  <td className="py-3.5 px-4 text-center font-bold text-slate-900 font-mono">
                     {d.pending + d.overdue * 2 + 100}
                   </td>
-                  <td className="py-3 px-4 text-center font-semibold text-slate-800 text-[13.5px]">
+                  <td className="py-3.5 px-4 text-center font-bold text-slate-700 font-mono">
                     {d.pending}
                   </td>
-                  <td className="py-3 px-4 text-center">
-                    <span className={`font-bold px-2 py-0.5 rounded-[2px] text-[11.5px] ${
+                  <td className="py-3.5 px-4 text-center">
+                    <span className={`font-bold px-2 py-0.5 rounded text-[10.5px] font-mono ${
                       d.overdue > 10 ? 'bg-red-100 text-red-950 border border-red-300' : 'bg-slate-100 text-slate-700'
                     }`}>
                       {d.overdue}
                     </span>
                   </td>
-                  <td className="py-3 px-4 text-center font-mono font-bold text-[#1B365D] text-[13.5px]">
+                  <td className="py-3.5 px-4 text-center font-mono font-bold text-[#1E4E8C]">
                     {d.avgDays}d
                   </td>
-                  <td className="py-3 px-4 text-center text-slate-600 text-[13px]">
+                  <td className="py-3.5 px-4 text-center text-slate-500 font-mono">
                     {d.standardSLA}d
                   </td>
-                  <td className="py-3 px-4">
+                  <td className="py-3.5 px-4">
                     {d.overdue > 20 ? (
-                      <span className="text-red-800 font-bold text-[12px]">Primary Bottleneck</span>
+                      <span className="text-red-700 font-bold text-xs flex items-center gap-1">
+                        <span className="w-2 h-2 rounded-full bg-red-600 animate-pulse"></span>
+                        Primary Bottleneck
+                      </span>
                     ) : d.overdue > 5 ? (
-                      <span className="text-amber-800 font-semibold text-[12px]">Moderate Backlog</span>
+                      <span className="text-amber-700 font-bold text-xs">Moderate Backlog</span>
                     ) : (
-                      <span className="text-emerald-800 font-semibold text-[12px]">Healthy Flow</span>
+                      <span className="text-emerald-700 font-bold text-xs">Healthy Flow</span>
                     )}
                   </td>
                 </tr>

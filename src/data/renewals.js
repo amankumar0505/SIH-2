@@ -93,6 +93,18 @@ export const renewalsDatabase = [
 
 export const complianceCalendarEvents = [
   {
+    id: "cal-cis-joint",
+    date: "04 Sep 2026",
+    day: "04",
+    month: "SEP",
+    title: "Central Inspection System (CIS) Joint Site Visit",
+    department: "Joint: MFES (Fire) + DISH (Factory) + MPCB (Pollution)",
+    type: "Joint Inspection",
+    unit: "ABC Food Processing Pvt Ltd",
+    severity: "Critical",
+    details: "Synchronized multi-departmental field visit (CIS-2026-PN-089) for fire hydrants, worker safety guards, and zero-liquid effluent lines. Single combined report mandate."
+  },
+  {
     id: "cal-1",
     date: "12 Sep 2026",
     day: "12",

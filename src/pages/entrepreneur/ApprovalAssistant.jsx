@@ -69,24 +69,27 @@ export default function ApprovalAssistant({ project, onNavigate, onFixDocumentIs
   };
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-6 max-w-6xl">
       {/* Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-1">
+      <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-3 pb-1">
         <div>
-          <div className="text-[12px] font-bold text-slate-500 uppercase tracking-wider">
-            Knowledge-Base Guidance
+          <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wider flex items-center gap-2">
+            <span>Knowledge-Base Guidance</span>
+            <span className="text-[#1E4E8C] bg-blue-50 text-[10.5px] px-2 py-0.5 rounded border border-blue-200 font-bold">
+              Maharashtra Industrial Acts
+            </span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-[#1B365D]">
-            Approval Guidance
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-0.5">
+            Clearance Guidance Assistant
           </h1>
-          <p className="text-[14px] text-slate-600 mt-0.5">
-            Ask about an approval, document or next step.
+          <p className="text-xs sm:text-sm text-slate-600 mt-1">
+            Deterministic statutory clarification powered by official state gazettes and department rules.
           </p>
         </div>
 
         <div className="flex items-center gap-2">
-          <span className="bg-[#F0F4F8] text-[#1B365D] text-[12px] font-semibold px-3 py-1.5 rounded-[2px] border border-blue-200">
-            AI-assisted guidance based on the government knowledge base
+          <span className="bg-blue-50 text-[#1E4E8C] text-xs font-bold px-3 py-1.5 rounded-lg border border-blue-200">
+            Rule-based statutory reasoning
           </span>
         </div>
       </div>
@@ -96,65 +99,65 @@ export default function ApprovalAssistant({ project, onNavigate, onFixDocumentIs
       {/* Main Conversational & Guidance Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
         {/* Left Column: Standard Queries */}
-        <div className="lg:col-span-4 space-y-3">
-          <div className="bg-white rounded-[3px] border border-[#CBD5E1] p-4 shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
-            <h2 className="text-[12px] font-bold text-slate-500 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-              <BookOpen className="w-4 h-4 text-[#1B365D]" />
-              Frequently Asked Compliance Queries
+        <div className="lg:col-span-4 space-y-4">
+          <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-xs">
+            <h2 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+              <BookOpen className="w-4 h-4 text-[#1E4E8C]" />
+              Frequently Asked Inquiries
             </h2>
-            <p className="text-[13px] text-slate-600 mb-3">
-              Click any question below to inspect authoritative rule-based guidance:
+            <p className="text-xs text-slate-600 mb-3.5">
+              Select any query below to inspect official regulatory guidance:
             </p>
 
-            <div className="space-y-2">
+            <div className="space-y-2.5">
               {sampleQuestions.map((sq, idx) => (
                 <button
                   key={idx}
                   onClick={() => handleAsk(sq.q, sq.reply)}
-                  className="w-full text-left p-2.5 rounded-[2px] border border-slate-200 bg-slate-50 hover:bg-blue-50 hover:border-blue-300 text-[13px] font-semibold text-slate-800 transition-colors flex items-start justify-between gap-2"
+                  className="w-full text-left p-3 rounded-lg border border-slate-200 bg-slate-50 hover:bg-blue-50/70 hover:border-blue-300 text-xs font-bold text-slate-800 transition-all flex items-start justify-between gap-2 shadow-2xs group"
                 >
-                  <span>"{sq.q}"</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-slate-400 shrink-0 mt-0.5" />
+                  <span className="group-hover:text-[#1E4E8C]">"{sq.q}"</span>
+                  <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-[#1E4E8C] group-hover:translate-x-0.5 transition-all shrink-0 mt-0.5" />
                 </button>
               ))}
             </div>
           </div>
 
-          <div className="p-3.5 bg-blue-50/70 border border-blue-200 rounded-[3px] text-xs text-slate-700">
-            <div className="font-bold text-[#1B365D] text-[13px] mb-1">Knowledge Base Sources:</div>
-            <p className="text-[12.5px] leading-relaxed">
-              Guidance responses are derived directly from Maharashtra Factories Rules, Water/Air Acts, MPCB e-Consent manuals, and FoSCoS guidelines.
+          <div className="p-4 bg-blue-50/50 border border-blue-200 rounded-xl text-xs text-slate-700 shadow-2xs">
+            <div className="font-bold text-[#1E4E8C] mb-1">Authoritative Legal Reference:</div>
+            <p className="leading-relaxed text-slate-600">
+              Guidance responses are derived directly from Maharashtra Factories Rules 1963, Water/Air Pollution Acts, MPCB e-Consent manuals, and DISH guidelines.
             </p>
           </div>
         </div>
 
         {/* Right Q&A Chat Window */}
-        <div className="lg:col-span-8 bg-white rounded-[3px] border border-[#CBD5E1] shadow-[0_1px_2px_rgba(0,0,0,0.04)] flex flex-col h-[520px]">
+        <div className="lg:col-span-8 bg-white rounded-xl border border-slate-200 shadow-xs flex flex-col h-[540px] overflow-hidden">
           {/* Header */}
-          <div className="p-3.5 bg-slate-100/70 border-b border-slate-300 flex items-center justify-between text-xs">
-            <div className="flex items-center gap-2 font-bold text-slate-900 text-[13.5px]">
-              <ShieldCheck className="w-4 h-4 text-[#1B365D]" />
+          <div className="p-4 bg-slate-50/70 border-b border-slate-200 flex items-center justify-between text-xs">
+            <div className="flex items-center gap-2 font-bold text-slate-900">
+              <ShieldCheck className="w-4 h-4 text-[#1E4E8C]" />
               <span>Government Knowledge Base Guidance Console</span>
             </div>
-            <span className="text-[12px] text-slate-500">Maharashtra Industrial Acts Repository</span>
+            <span className="text-[11px] text-slate-500 font-mono">Maharashtra Single-Window Engine</span>
           </div>
 
           {/* Messages Area */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-3.5">
+          <div className="flex-1 overflow-y-auto p-5 space-y-4">
             {messages.map((m) => (
               <div
                 key={m.id}
                 className={`flex flex-col ${m.sender === 'user' ? 'items-end' : 'items-start'}`}
               >
-                <div className={`max-w-xl p-3.5 rounded-[3px] text-[13.5px] leading-relaxed ${
+                <div className={`max-w-xl p-4 rounded-xl text-xs leading-relaxed ${
                   m.sender === 'user'
-                    ? 'bg-[#1B365D] text-white'
-                    : 'bg-slate-100 text-slate-900 border border-slate-300'
+                    ? 'bg-[#1E4E8C] text-white font-medium shadow-2xs'
+                    : 'bg-slate-50 text-slate-900 border border-slate-200 shadow-2xs'
                 }`}>
                   {m.text}
                 </div>
-                <span className="text-[11px] text-slate-400 mt-1 px-1">
-                  {m.sender === 'user' ? 'You' : 'INDUSTRIA Knowledge Base'}
+                <span className="text-[10.5px] text-slate-400 mt-1 px-1 font-medium">
+                  {m.sender === 'user' ? 'You' : 'Government Knowledge Base'}
                 </span>
               </div>
             ))}
@@ -166,18 +169,18 @@ export default function ApprovalAssistant({ project, onNavigate, onFixDocumentIs
               e.preventDefault();
               handleAsk();
             }}
-            className="p-3 bg-slate-100/60 border-t border-slate-300 flex items-center gap-2"
+            className="p-3.5 bg-slate-50/50 border-t border-slate-200 flex items-center gap-2"
           >
             <input
               type="text"
               value={inputQuery}
               onChange={(e) => setInputQuery(e.target.value)}
-              placeholder="Ask about an approval, document or next step..."
-              className="flex-1 px-3 py-2 border border-slate-300 rounded-[3px] text-[13.5px] focus:border-[#1B365D] focus:outline-none"
+              placeholder="Ask about an approval, document prerequisite, or timeline..."
+              className="flex-1 px-3.5 py-2 border border-slate-300 rounded-lg text-xs focus:border-[#1E4E8C] focus:outline-none"
             />
             <button
               type="submit"
-              className="px-4 py-2 bg-[#1B365D] hover:bg-[#142947] text-white rounded-[3px] text-[13px] font-semibold flex items-center gap-1.5 shadow-sm"
+              className="px-4 py-2 bg-[#1E4E8C] hover:bg-[#143D6F] text-white rounded-lg text-xs font-bold flex items-center gap-1.5 shadow-xs transition-colors"
             >
               <span>Submit</span>
               <Send className="w-3.5 h-3.5" />

@@ -90,6 +90,7 @@ export const initialApplications = [
     actualDays: 68,
     isDelayed: true,
     delayDays: 38,
+    riskLevel: "ORANGE",
     assignedOfficer: "A. M. Patil (Sub-Regional Officer, Pune II)",
     priority: "High",
     nextActionText: "Awaiting final Consent Committee deliberation",
@@ -111,6 +112,7 @@ export const initialApplications = [
     district: "Pune",
     submittedDate: "05 July 2026",
     status: "INSPECTION",
+    riskLevel: "RED",
     stage: "Field Physical Inspection Scheduled",
     lastUpdated: "22 August 2026",
     expectedDays: 21,
@@ -118,11 +120,12 @@ export const initialApplications = [
     isDelayed: false,
     assignedOfficer: "V. R. Joshi (Divisional Fire Officer)",
     priority: "High",
-    nextActionText: "Joint site inspection on 04 September 2026",
+    nextActionText: "Joint CIS site inspection on 04 September 2026",
+    jointInspectionId: "CIS-2026-PN-089",
     timeline: [
       { step: "Application & Fire Drawings Filed", date: "05 July 2026", status: "COMPLETED", remarks: "Hydrant blueprint registered" },
       { step: "Hydrant & Static Tank Review", date: "18 July 2026", status: "COMPLETED", remarks: "100 kL capacity vetted" },
-      { step: "Field Physical Inspection", date: "CURRENT", status: "IN_PROGRESS", remarks: "Site inspection scheduled with architect" },
+      { step: "Field Physical Inspection", date: "CURRENT", status: "IN_PROGRESS", remarks: "Joint site inspection scheduled with DISH & MPCB under CIS" },
       { step: "Final Provisional Sanction", date: "Pending", status: "NOT_STARTED", remarks: "Pending post-inspection compliance" }
     ]
   },
@@ -136,6 +139,7 @@ export const initialApplications = [
     district: "Pune",
     submittedDate: "15 July 2026",
     status: "ACTION REQUIRED",
+    riskLevel: "ORANGE",
     stage: "Query Raised: Drawing Discrepancy",
     lastUpdated: "25 August 2026",
     expectedDays: 25,
@@ -144,6 +148,16 @@ export const initialApplications = [
     assignedOfficer: "D. B. Gaikwad (Deputy Director of Factories)",
     priority: "Urgent",
     nextActionText: "Upload revised Factory Layout Drawing (Deadline: 27 Aug 2026)",
+    queryDetails: {
+      queryId: "QRY-DISH-2026-8812",
+      raisedDate: "22 August 2026",
+      officerName: "D. B. Gaikwad (Deputy Director of Factories)",
+      subject: "Boundary dimension & machinery layout coordinate mismatch with MIDC deed",
+      queryText: "The boundary coordinate in Sheet 2 of the uploaded Factory Layout does not tally with Plot A-42/1 lease deed. Kindly submit an architect-certified revised drawing with updated north-point orientation.",
+      requestedDocName: "Factory_Layout_Drawing_V2.pdf",
+      deadline: "27 August 2026",
+      isResolved: false
+    },
     timeline: [
       { step: "Application Form 1 & Layout Filed", date: "15 July 2026", status: "COMPLETED", remarks: "80 workers power-operated plant" },
       { step: "Technical Drawing Scrutiny", date: "22 August 2026", status: "COMPLETED", remarks: "Flagged: Layout title & survey coordinates mismatch" },

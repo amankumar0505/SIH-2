@@ -5,6 +5,8 @@ import Toast from './components/Toast';
 import ApprovalDrawer from './components/ApprovalDrawer';
 import VerificationPanel from './components/VerificationPanel';
 import ApplicationTimeline from './components/ApplicationTimeline';
+import DigiLockerModal from './components/DigiLockerModal';
+import LegalModal from './components/LegalModal';
 
 // Pages
 import Landing from './pages/Landing';
@@ -55,6 +57,10 @@ export default function App() {
   const [selectedApproval, setSelectedApproval] = useState(null);
   const [selectedDocument, setSelectedDocument] = useState(null);
   const [selectedApplication, setSelectedApplication] = useState(null);
+  const [isDigiLockerOpen, setIsDigiLockerOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [legalModalOpen, setLegalModalOpen] = useState(false);
+  const [legalModalType, setLegalModalType] = useState('terms');
 
   // Toast Notification State
   const [toast, setToast] = useState(null);
@@ -87,6 +93,7 @@ export default function App() {
     setSelectedApproval(null);
     setSelectedDocument(null);
     setSelectedApplication(null);
+    setIsDigiLockerOpen(false);
   };
 
   // Document Issue Resolution Handler
@@ -143,6 +150,50 @@ export default function App() {
     setDocumentsState(prev => [verified, ...prev]);
   };
 
+  // Handle Ingestion of DigiLocker Documents
+  const handleDigiLockerFetch = (fetchedDocs) => {
+    const formattedDocs = fetchedDocs.map(item => ({
+      id: item.id || `doc-${Date.now()}`,
+      fileName: item.fileName,
+      documentType: item.docType || item.title,
+      category: item.category || 'Corporate',
+      source: 'DigiLocker',
+      issuer: item.issuer,
+      issuerCode: item.docCode,
+      uploadDate: '11 Sep 2026',
+      size: item.size || '650 KB',
+      status: 'Valid',
+      sha256Hash: item.sha256 || 'e7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8',
+      digitalSignature: {
+        status: 'VALID',
+        algorithm: 'SHA256withRSA (2048-bit)',
+        certIssuer: item.certIssuer || 'Government Sub-CA Certificate',
+        validUntil: '31 Dec 2028',
+        timestamp: '11 Sep 2026 21:50:00 IST'
+      },
+      piiProtection: {
+        dpdpCompliant: true,
+        maskedAadhaar: 'XXXX-XXXX-8821',
+        maskedPan: 'AAACA****F',
+        dataMinimization: 'Statutory Verification Only'
+      },
+      consentId: 'DEPA-CONSENT-2026-MH-9941',
+      extractedData: item.extractedData || {},
+      validations: [
+        { field: 'DigiLocker X.509 PKI Signature', status: 'PASS', message: `Cryptographically verified with ${item.issuer} public certificate` },
+        { field: 'Corporate Title Match', status: 'PASS', message: 'Matches registered entity name: ABC Food Processing Private Limited' },
+        { field: 'DPDP Act 2023 Compliance', status: 'PASS', message: 'PII tokens masked. Consent logged on immutable audit ledger.' }
+      ]
+    }));
+
+    // Merge without duplicating existing fileNames
+    setDocumentsState(prev => {
+      const existingNames = new Set(prev.map(p => p.fileName));
+      const newItems = formattedDocs.filter(f => !existingNames.has(f.fileName));
+      return [...newItems, ...prev];
+    });
+  };
+
   // Navigation Handler
   const handleNavigate = (routeId) => {
     if (routeId === 'landing') {
@@ -150,6 +201,14 @@ export default function App() {
       return;
     }
     setIsLandingVisible(false);
+    
+    // Automatically switch role if navigating across workspace domains
+    if (routeId.startsWith('gov-')) {
+      setCurrentRole('government');
+    } else if (currentRole === 'government' && !routeId.startsWith('gov-') && routeId !== 'architecture') {
+      setCurrentRole('entrepreneur');
+    }
+
     setCurrentRoute(routeId);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -174,26 +233,42 @@ export default function App() {
     showToast(`Loaded ${demoProjects[scenarioKey].name}`, "info");
   };
 
+  const handleOpenLegal = (type) => {
+    setLegalModalType(type);
+    setLegalModalOpen(true);
+  };
+
   if (isLandingVisible) {
     return (
-      <Landing
-        onSelectRole={(role) => handleRoleChange(role)}
-        onSelectScenario={(sc) => handleLandingScenario(sc)}
-      />
+      <>
+        <Landing
+          onSelectRole={(role) => handleRoleChange(role)}
+          onSelectScenario={(sc) => handleLandingScenario(sc)}
+          onOpenLegal={handleOpenLegal}
+        />
+        <LegalModal
+          isOpen={legalModalOpen}
+          onClose={() => setLegalModalOpen(false)}
+          documentType={legalModalType}
+        />
+      </>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#F5F6F8] flex flex-col font-sans text-slate-900 selection:bg-[#1B365D] selection:text-white">
+    <div className="min-h-screen bg-[#F5F5F7] flex flex-col font-sans text-[#1D1D1F] selection:bg-[#003366] selection:text-white">
       {/* Global Portal Header */}
       <Header
         currentRole={currentRole}
+        currentRoute={currentRoute}
         onRoleChange={handleRoleChange}
         activeProject={activeProject}
         onSelectProject={(key) => handleSelectProject(key)}
         onNavigate={handleNavigate}
         onResetData={handleResetData}
         showToast={showToast}
+        isMobileMenuOpen={isMobileMenuOpen}
+        onToggleMobileMenu={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
       />
 
       {/* Main Workspace Layout */}
@@ -204,10 +279,12 @@ export default function App() {
           currentRoute={currentRoute}
           onNavigate={handleNavigate}
           activeProject={activeProject}
+          isMobileMenuOpen={isMobileMenuOpen}
+          onCloseMobileMenu={() => setIsMobileMenuOpen(false)}
         />
 
-        {/* Dynamic Page Content */}
-        <main className="flex-1 p-5 md:p-6 overflow-x-hidden min-w-0">
+        {/* Dynamic Page Content with Generous Enterprise Padding */}
+        <main className="flex-1 p-6 sm:p-7 md:p-8 lg:p-9 overflow-x-hidden min-w-0">
           {/* ENTREPRENEUR ROUTES */}
           {currentRole === 'entrepreneur' && (
             <>
@@ -271,6 +348,7 @@ export default function App() {
                   documents={documentsState}
                   onSelectDocument={(doc) => setSelectedDocument(doc)}
                   onUploadSimulatedFile={handleUploadSimulatedFile}
+                  onOpenDigiLocker={() => setIsDigiLockerOpen(true)}
                   showToast={showToast}
                 />
               )}
@@ -333,6 +411,7 @@ export default function App() {
                   onSelectCase={(c) => {
                     handleNavigate('gov-applications');
                   }}
+                  showToast={showToast}
                 />
               )}
 
@@ -391,11 +470,109 @@ export default function App() {
         project={activeProject}
       />
 
+      <DigiLockerModal
+        isOpen={isDigiLockerOpen}
+        onClose={() => setIsDigiLockerOpen(false)}
+        onFetchSuccess={handleDigiLockerFetch}
+        showToast={showToast}
+      />
+
       <ApplicationTimeline
         application={selectedApplication}
         isOpen={Boolean(selectedApplication)}
         onClose={() => setSelectedApplication(null)}
+        onResolveQuery={(appId, resolutionData) => {
+          setApplicationsState(prev => prev.map(a => {
+            if (a.id === appId) {
+              return {
+                ...a,
+                status: 'UNDER REVIEW',
+                stage: 'Applicant Clarification Submitted',
+                nextActionText: 'Officer re-scrutinizing revised drawings',
+                queryDetails: a.queryDetails ? { ...a.queryDetails, isResolved: true } : null,
+                timeline: [
+                  ...a.timeline,
+                  {
+                    step: 'Applicant Clarification Submitted',
+                    date: 'Today',
+                    status: 'COMPLETED',
+                    remarks: `Uploaded ${resolutionData.fileName}. Clarification: "${resolutionData.note}"`
+                  }
+                ]
+              };
+            }
+            return a;
+          }));
+          if (selectedApplication?.id === appId) {
+            setSelectedApplication(prev => prev ? ({
+              ...prev,
+              status: 'UNDER REVIEW',
+              stage: 'Applicant Clarification Submitted',
+              queryDetails: prev.queryDetails ? { ...prev.queryDetails, isResolved: true } : null,
+              timeline: [
+                ...prev.timeline,
+                {
+                  step: 'Applicant Clarification Submitted',
+                  date: 'Today',
+                  status: 'COMPLETED',
+                  remarks: `Uploaded ${resolutionData.fileName}. Clarification: "${resolutionData.note}"`
+                }
+              ]
+            }) : null);
+          }
+        }}
+        onRaiseGrievance={(appId, token) => {
+          setApplicationsState(prev => prev.map(a => {
+            if (a.id === appId) {
+              return {
+                ...a,
+                grievanceToken: token,
+                timeline: [
+                  ...a.timeline,
+                  {
+                    step: `Statutory Grievance Lodged (${token})`,
+                    date: 'Today',
+                    status: 'IN_PROGRESS',
+                    remarks: 'Escalated to District Collector / Secretary under Maharashtra Right to Public Services Act.'
+                  }
+                ]
+              };
+            }
+            return a;
+          }));
+        }}
+        showToast={showToast}
       />
+
+      <LegalModal
+        isOpen={legalModalOpen}
+        onClose={() => setLegalModalOpen(false)}
+        documentType={legalModalType}
+      />
+
+      {/* Global Footer */}
+      <footer className="border-t border-[#D2D2D7] bg-white py-3 px-6 text-xs text-[#6E6E73] mt-auto">
+        <div className="max-w-[1920px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+          <div>
+            INDUSTRIA • Government of Maharashtra Single Window Portal • Prototype Environment (SIH 2026)
+          </div>
+          <div className="flex items-center gap-3">
+            <button 
+              onClick={() => handleOpenLegal('terms')}
+              className="hover:text-[#1D1D1F] hover:underline"
+            >
+              Terms of Service
+            </button>
+            <span className="text-[#D2D2D7]">|</span>
+            <button 
+              onClick={() => handleOpenLegal('privacy')}
+              className="hover:text-[#1D1D1F] hover:underline"
+            >
+              Privacy & DPDP Policy
+            </button>
+          </div>
+        </div>
+      </footer>
 
       {/* Toast Notification Container */}
       <Toast

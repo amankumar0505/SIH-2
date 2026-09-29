@@ -39,17 +39,20 @@ export default function DepartmentApplications({ onSelectCase, showToast }) {
   };
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-6 max-w-6xl">
       {/* Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-1">
+      <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-3 pb-1">
         <div>
-          <div className="text-[12px] font-bold text-slate-500 uppercase tracking-wider">
-            Industrial Applications Register
+          <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wider flex items-center gap-2">
+            <span>Industrial Applications Register</span>
+            <span className="text-[#1E4E8C] bg-blue-50 text-[10.5px] px-2 py-0.5 rounded border border-blue-200 font-bold">
+              {filtered.length} Case Files
+            </span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-[#1B365D]">
-            Department Applications Management
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-0.5">
+            Department Scrutiny Ledger
           </h1>
-          <p className="text-[14px] text-slate-600 mt-0.5">
+          <p className="text-xs sm:text-sm text-slate-600 mt-1">
             Cross-departmental application records across Maharashtra industrial estates with statutory SLA tracking.
           </p>
         </div>
@@ -57,23 +60,23 @@ export default function DepartmentApplications({ onSelectCase, showToast }) {
         <div className="flex items-center gap-2">
           <button
             onClick={() => setDelayedOnly(!delayedOnly)}
-            className={`px-3.5 py-1.5 rounded-[2px] text-[12.5px] font-bold border transition-colors flex items-center gap-1.5 ${
+            className={`px-4 py-2 rounded-lg text-xs font-bold border transition-all flex items-center gap-1.5 shadow-2xs ${
               delayedOnly
                 ? 'bg-red-800 text-white border-red-800'
                 : 'bg-white text-red-800 border-red-300 hover:bg-red-50'
             }`}
           >
-            <AlertOctagon className="w-4 h-4" />
-            <span>{delayedOnly ? "Showing Delayed Only" : "Filter Delayed Only"}</span>
+            <AlertOctagon className="w-3.5 h-3.5" />
+            <span>{delayedOnly ? "Showing Delayed Only" : "Filter Overdue Only"}</span>
           </button>
         </div>
       </div>
 
       {/* Filter Control Bar */}
-      <div className="bg-white p-4 rounded-[3px] border border-[#CBD5E1] shadow-[0_1px_2px_rgba(0,0,0,0.04)] space-y-3 text-xs">
+      <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-xs space-y-3 text-xs">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <div>
-            <label className="block font-bold text-slate-700 uppercase text-[11.5px] mb-1">Search Applications</label>
+            <label className="block font-bold text-slate-700 uppercase text-[11px] mb-1">Search Applications</label>
             <div className="relative">
               <Search className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
               <input
@@ -81,28 +84,28 @@ export default function DepartmentApplications({ onSelectCase, showToast }) {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder="Search enterprise, application ID..."
-                className="w-full pl-9 pr-3 py-1.5 border border-slate-300 rounded-[3px] text-[13.5px] focus:border-[#1B365D] focus:outline-none"
+                className="w-full pl-9 pr-3 py-2 border border-slate-300 rounded-lg text-xs focus:border-[#1E4E8C] focus:outline-none"
               />
             </div>
           </div>
 
           <div>
-            <label className="block font-bold text-slate-700 uppercase text-[11.5px] mb-1">Department</label>
+            <label className="block font-bold text-slate-700 uppercase text-[11px] mb-1">Department</label>
             <select
               value={selectedDept}
               onChange={(e) => setSelectedDept(e.target.value)}
-              className="w-full px-3 py-1.5 border border-slate-300 rounded-[3px] font-semibold text-slate-800 text-[13.5px] focus:border-[#1B365D] focus:outline-none"
+              className="w-full px-3 py-2 border border-slate-300 rounded-lg font-bold text-slate-800 text-xs focus:border-[#1E4E8C] focus:outline-none"
             >
               {departments.map(d => <option key={d} value={d}>{d}</option>)}
             </select>
           </div>
 
           <div>
-            <label className="block font-bold text-slate-700 uppercase text-[11.5px] mb-1">District</label>
+            <label className="block font-bold text-slate-700 uppercase text-[11px] mb-1">District</label>
             <select
               value={selectedDistrict}
               onChange={(e) => setSelectedDistrict(e.target.value)}
-              className="w-full px-3 py-1.5 border border-slate-300 rounded-[3px] font-semibold text-slate-800 text-[13.5px] focus:border-[#1B365D] focus:outline-none"
+              className="w-full px-3 py-2 border border-slate-300 rounded-lg font-bold text-slate-800 text-xs focus:border-[#1E4E8C] focus:outline-none"
             >
               {districts.map(d => <option key={d} value={d}>{d}</option>)}
             </select>
@@ -111,73 +114,87 @@ export default function DepartmentApplications({ onSelectCase, showToast }) {
       </div>
 
       {/* Applications Table */}
-      <div className="bg-white rounded-[3px] border border-[#CBD5E1] shadow-[0_1px_2px_rgba(0,0,0,0.04)] overflow-hidden">
+      <div className="bg-white rounded-xl border border-slate-200 shadow-xs overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-slate-100 text-slate-700 border-b border-slate-300">
-                <th className="py-2.5 px-4 font-bold text-[13.5px]">App ID</th>
-                <th className="py-2.5 px-4 font-bold text-[13.5px]">Enterprise Name</th>
-                <th className="py-2.5 px-4 font-bold text-[13.5px]">Industry</th>
-                <th className="py-2.5 px-4 font-bold text-[13.5px]">District</th>
-                <th className="py-2.5 px-4 font-bold text-[13.5px]">Approval Type</th>
-                <th className="py-2.5 px-4 text-center font-bold text-[13.5px]">Age</th>
-                <th className="py-2.5 px-4 font-bold text-[13.5px]">Status</th>
-                <th className="py-2.5 px-4 font-bold text-[13.5px]">Assigned Officer</th>
-                <th className="py-2.5 px-4 text-right font-bold text-[13.5px]">Action</th>
+              <tr className="bg-slate-50/50 text-slate-500 border-b border-slate-200 uppercase text-[11px] font-bold tracking-wider">
+                <th className="py-3 px-4">App ID</th>
+                <th className="py-3 px-4">Enterprise Name</th>
+                <th className="py-3 px-4">Industry</th>
+                <th className="py-3 px-4">Risk Scrutiny</th>
+                <th className="py-3 px-4">Approval Type</th>
+                <th className="py-3 px-4 text-center">Age</th>
+                <th className="py-3 px-4">Status</th>
+                <th className="py-3 px-4">Assigned Officer</th>
+                <th className="py-3 px-4 text-right">Action</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-200">
+            <tbody className="divide-y divide-slate-100 text-xs">
               {filtered.map((item) => (
                 <tr
                   key={item.id}
                   onClick={() => setActiveModalCase(item)}
                   className={`hover:bg-slate-50 cursor-pointer transition-colors ${
-                    item.status === 'OVERDUE' ? 'bg-red-50/20' : ''
+                    item.status === 'OVERDUE' ? 'bg-red-50/30' : ''
                   }`}
                 >
-                  <td className="py-3 px-4 font-mono font-bold text-[#1B365D] text-[13.5px]">
+                  <td className="py-3.5 px-4 font-mono font-bold text-[#1E4E8C]">
                     {item.id}
                   </td>
-                  <td className="py-3 px-4 font-bold text-slate-900 text-[14.5px]">
-                    {item.companyName}
+                  <td className="py-3.5 px-4 font-bold text-slate-900">
+                    <div>{item.companyName}</div>
+                    <span className="text-[11px] text-slate-500 font-normal">{item.district} District</span>
                   </td>
-                  <td className="py-3 px-4 text-slate-700 text-[14px]">
+                  <td className="py-3.5 px-4 text-slate-600 font-medium">
                     {item.industry}
                   </td>
-                  <td className="py-3 px-4 text-slate-700 text-[14px]">
-                    {item.district}
+                  <td className="py-3.5 px-4">
+                    <span className={`px-2 py-0.5 rounded text-[10px] font-bold border ${
+                      item.riskLevel === 'GREEN' 
+                        ? 'bg-emerald-50 text-emerald-800 border-emerald-300' 
+                        : item.riskLevel === 'RED' 
+                        ? 'bg-red-50 text-red-900 border-red-300' 
+                        : 'bg-amber-50 text-amber-900 border-amber-300'
+                    }`}>
+                      {item.riskLevel ? `${item.riskLevel} RISK` : 'MEDIUM'}
+                    </span>
                   </td>
-                  <td className="py-3 px-4 text-slate-800 font-medium text-[14px]">
+                  <td className="py-3.5 px-4 text-slate-800 font-medium">
                     {item.approval}
                   </td>
-                  <td className="py-3 px-4 text-center font-bold text-slate-900 text-[14px]">
+                  <td className="py-3.5 px-4 text-center font-bold text-slate-900 font-mono">
                     {item.daysPending}d
                   </td>
-                  <td className="py-3 px-4">
+                  <td className="py-3.5 px-4">
                     {item.status === 'OVERDUE' ? (
-                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-[2px] text-[11.5px] font-bold bg-red-100 text-red-900 border border-red-300">
+                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded text-[11px] font-bold bg-red-50 text-red-900 border border-red-300">
                         <AlertOctagon className="w-3.5 h-3.5 text-red-700" />
-                        Overdue ({item.delay})
+                        OVERDUE
+                      </span>
+                    ) : item.status === 'APPROVED' ? (
+                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded text-[11px] font-bold bg-emerald-50 text-emerald-900 border border-emerald-300">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                        APPROVED
                       </span>
                     ) : (
-                      <span className="inline-block px-2.5 py-0.5 rounded-[2px] text-[11.5px] font-bold bg-blue-50 text-blue-900 border border-blue-200">
-                        In Review
+                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded text-[11px] font-bold bg-blue-50 text-blue-900 border border-blue-200">
+                        IN PROGRESS
                       </span>
                     )}
                   </td>
-                  <td className="py-3 px-4 text-slate-700 text-[13.5px]">
+                  <td className="py-3.5 px-4 text-slate-600 font-medium">
                     {item.assignedOfficer}
                   </td>
-                  <td className="py-3 px-4 text-right">
+                  <td className="py-3.5 px-4 text-right">
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
                         setActiveModalCase(item);
                       }}
-                      className="px-3 py-1 bg-white hover:bg-slate-100 border border-slate-300 text-[#1B365D] rounded-[2px] font-bold text-[12.5px] shadow-sm"
+                      className="text-xs font-bold text-[#1E4E8C] hover:text-[#143D6F] hover:underline"
                     >
-                      Review Case
+                      Inspect Case →
                     </button>
                   </td>
                 </tr>
@@ -256,10 +273,10 @@ export default function DepartmentApplications({ onSelectCase, showToast }) {
                     Raise Document Query
                   </button>
                   <button
-                    onClick={() => handleOfficerAction("Schedule Physical Inspection")}
+                    onClick={() => handleOfficerAction("Synchronize Central Joint Inspection (CIS)")}
                     className="px-3.5 py-1.5 bg-blue-800 hover:bg-blue-900 text-white rounded-[2px] text-[12.5px] font-bold shadow-sm"
                   >
-                    Schedule Inspection
+                    Schedule CIS Joint Inspection
                   </button>
                 </div>
 
